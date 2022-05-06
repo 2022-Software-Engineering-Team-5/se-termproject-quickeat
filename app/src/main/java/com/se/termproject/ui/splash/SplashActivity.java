@@ -1,0 +1,29 @@
+package com.se.termproject.ui.splash;
+
+import android.annotation.SuppressLint;
+import android.os.Handler;
+
+import com.se.termproject.base.BaseActivity;
+import com.se.termproject.databinding.ActivitySplashBinding;
+import com.se.termproject.ui.main.MainActivity;
+
+@SuppressLint("CustomSplashScreen")
+public class SplashActivity extends BaseActivity<ActivitySplashBinding> {
+
+    @Override
+    protected ActivitySplashBinding setViewBinding() {
+        return ActivitySplashBinding.inflate(getLayoutInflater());
+    }
+
+    @Override
+    protected void initAfterBinding() {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                startNextActivity(MainActivity.class);
+                finish();
+            }
+        }, 2000);
+    }
+}
