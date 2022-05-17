@@ -1,4 +1,4 @@
-package com.se.termproject.ui.main.history;
+package com.se.termproject.ui.customer.history;
 
 import com.se.termproject.base.java.BaseFragment;
 import com.se.termproject.databinding.FragmentHistoryBinding;

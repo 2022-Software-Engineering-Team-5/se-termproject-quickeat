@@ -5,7 +5,7 @@ import android.os.Handler;
 
 import com.se.termproject.base.java.BaseActivity;
 import com.se.termproject.databinding.ActivitySplashBinding;
-import com.se.termproject.ui.main.MainActivity;
+import com.se.termproject.ui.login.LoginActivity;
 
 @SuppressLint("CustomSplashScreen")
 public class SplashActivity extends BaseActivity<ActivitySplashBinding> {
@@ -21,7 +21,7 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding> {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                startNextActivity(SplashActivity.class);
+                startNextActivity(IntroActivity.class);
                 finish();
             }
         }, 2000);
