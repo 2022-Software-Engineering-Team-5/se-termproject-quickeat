@@ -5,10 +5,6 @@ import com.se.termproject.databinding.FragmentHomeBinding;
 
 public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
 
-//    public static Fragment newInstance() {
-//        return new HomeFragment();
-//    }
-
     @Override
     protected FragmentHomeBinding setViewBinding() {
         return FragmentHomeBinding.inflate(getLayoutInflater());

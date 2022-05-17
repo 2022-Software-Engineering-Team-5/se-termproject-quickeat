@@ -1,4 +1,4 @@
-package com.se.termproject.ui.splash;
+package com.se.termproject.ui.intro;
 
 import android.annotation.SuppressLint;
 import android.os.Handler;
