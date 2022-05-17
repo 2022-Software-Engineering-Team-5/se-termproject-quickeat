@@ -1,4 +1,4 @@
-package com.se.termproject.base;
+package com.se.termproject.base.java;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

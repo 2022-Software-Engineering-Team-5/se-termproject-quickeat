@@ -1,6 +1,6 @@
 package com.se.termproject.ui.main.history;
 
-import com.se.termproject.base.BaseFragment;
+import com.se.termproject.base.java.BaseFragment;
 import com.se.termproject.databinding.FragmentHistoryBinding;
 
 public class HistoryFragment extends BaseFragment<FragmentHistoryBinding> {

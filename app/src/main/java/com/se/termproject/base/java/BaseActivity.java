@@ -1,4 +1,4 @@
-package com.se.termproject.base;
+package com.se.termproject.base.java;
 
 import android.content.Intent;
 import android.os.Bundle;

@@ -1,6 +1,6 @@
 package com.se.termproject.ui.main.bookmark;
 
-import com.se.termproject.base.BaseFragment;
+import com.se.termproject.base.java.BaseFragment;
 import com.se.termproject.databinding.FragmentBookmarkBinding;
 
 public class BookmarkFragment extends BaseFragment<FragmentBookmarkBinding> {
