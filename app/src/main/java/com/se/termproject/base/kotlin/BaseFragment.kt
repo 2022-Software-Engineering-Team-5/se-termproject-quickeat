@@ -1,4 +1,4 @@
-package com.se.termproject.base
+package com.se.termproject.base.kotlin
 
 import android.graphics.Insets
 import android.graphics.Point

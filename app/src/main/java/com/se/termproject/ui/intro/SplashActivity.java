@@ -3,7 +3,7 @@ package com.se.termproject.ui.intro;
 import android.annotation.SuppressLint;
 import android.os.Handler;
 
-import com.se.termproject.base.BaseActivity;
+import com.se.termproject.base.java.BaseActivity;
 import com.se.termproject.databinding.ActivitySplashBinding;
 import com.se.termproject.ui.main.MainActivity;
 
@@ -21,7 +21,7 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding> {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                startNextActivity(MainActivity.class);
+                startNextActivity(SplashActivity.class);
                 finish();
             }
         }, 2000);

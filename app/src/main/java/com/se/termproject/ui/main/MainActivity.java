@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.navigation.NavigationBarView;
 import com.se.termproject.R;
-import com.se.termproject.base.BaseActivity;
+import com.se.termproject.base.java.BaseActivity;
 import com.se.termproject.databinding.ActivityMainBinding;
 import com.se.termproject.ui.main.bookmark.BookmarkFragment;
 import com.se.termproject.ui.main.history.HistoryFragment;

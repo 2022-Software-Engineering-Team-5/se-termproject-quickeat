@@ -1,6 +1,6 @@
 package com.se.termproject.ui.main.home;
 
-import com.se.termproject.base.BaseFragment;
+import com.se.termproject.base.java.BaseFragment;
 import com.se.termproject.databinding.FragmentHomeBinding;
 
 public class HomeFragment extends BaseFragment<FragmentHomeBinding> {
