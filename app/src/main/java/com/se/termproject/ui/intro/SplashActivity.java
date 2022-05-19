@@ -6,11 +6,16 @@ import android.os.Handler;
 
 import com.se.termproject.base.java.BaseActivity;
 import com.se.termproject.databinding.ActivitySplashBinding;
+<<<<<<< HEAD
 import com.se.termproject.ui.login.LoginActivity;
 import com.se.termproject.ui.main.MainActivity;
+=======
+import com.se.termproject.ui.admin.MainActivity;
+import com.se.termproject.ui.login.LoginActivity;
+>>>>>>> upstream/develop
 
 @SuppressLint("CustomSplashScreen")
-public class SplashActivity extends BaseActivity<ActivitySplashBinding> {
+public class SplashActivity extends BaseActivity<ActivitySplashBinding>{
 
     @Override
     protected ActivitySplashBinding setViewBinding() {
@@ -23,7 +28,11 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding> {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
+<<<<<<< HEAD
                 startNextActivity(LoginActivity.class);
+=======
+                startNextActivity(IntroActivity.class);
+>>>>>>> upstream/develop
                 finish();
             }
         }, 2000);

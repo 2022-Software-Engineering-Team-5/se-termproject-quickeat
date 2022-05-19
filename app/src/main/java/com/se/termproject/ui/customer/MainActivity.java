@@ -1,4 +1,4 @@
-package com.se.termproject.ui.main;
+package com.se.termproject.ui.customer;
 
 import android.annotation.SuppressLint;
 import android.view.MenuItem;
@@ -10,10 +10,10 @@ import com.google.android.material.navigation.NavigationBarView;
 import com.se.termproject.R;
 import com.se.termproject.base.java.BaseActivity;
 import com.se.termproject.databinding.ActivityMainBinding;
-import com.se.termproject.ui.main.bookmark.BookmarkFragment;
-import com.se.termproject.ui.main.history.HistoryFragment;
-import com.se.termproject.ui.main.home.HomeFragment;
-import com.se.termproject.ui.main.setting.SettingFragment;
+import com.se.termproject.ui.customer.bookmark.BookmarkFragment;
+import com.se.termproject.ui.customer.history.HistoryFragment;
+import com.se.termproject.ui.customer.home.HomeFragment;
+import com.se.termproject.ui.customer.setting.SettingFragment;
 
 public class MainActivity extends BaseActivity<ActivityMainBinding> {
     private static Fragment homeFragment, bookmarkFragment, historyFragment, settingFragment;

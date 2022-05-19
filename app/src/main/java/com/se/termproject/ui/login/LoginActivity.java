@@ -1,5 +1,6 @@
 package com.se.termproject.ui.login;
 
+<<<<<<< HEAD
 import android.content.Intent;
 import android.text.TextUtils;
 import android.util.Log;
@@ -18,16 +19,26 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+=======
+
+>>>>>>> upstream/develop
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.ktx.Firebase;
+import android.content.SharedPreferences;
+import android.view.View;
 import com.se.termproject.base.java.BaseActivity;
 import com.se.termproject.databinding.ActivityLoginBinding;
 import com.se.termproject.ui.main.MainActivity;
 
+<<<<<<< HEAD
 import java.util.HashMap;
 import java.util.Map;
+=======
+public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
+    private int mode = 0;
+>>>>>>> upstream/develop
 
 public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
 
@@ -39,6 +50,7 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
 
     @Override
     protected void initAfterBinding() {
+<<<<<<< HEAD
         mAuth = FirebaseAuth.getInstance();
 
        //id 입력받기
@@ -84,6 +96,42 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
                         }
                     }
                 });
+=======
+        // onCreate
+        //binding.loginAtLoginTv.
+        initMode();
+        initClickListener();
+    }
+
+    // customer mode인지 admin mode인지
+    private void initMode() {
+        SharedPreferences spf = getSharedPreferences("mode", 0);
+        mode = spf.getInt("mode", 0);
+    }
+
+    // click listener
+    private void initClickListener() {
+
+        // login button 클릭 시
+        binding.loginBtn.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                // 여기에 login 기능 구현
+
+                // login 기능 구현 뒤 activity 전환
+                if(mode == 0) {
+                    // customer mode
+                    startNextActivity(com.se.termproject.ui.customer.MainActivity.class);
+                } else {
+                    // admin mode
+                    startNextActivity(com.se.termproject.ui.admin.MainActivity.class);
+                }
+
+                finish();
+            }
+        });
+>>>>>>> upstream/develop
     }
 
     //폼 빈칸 체크
