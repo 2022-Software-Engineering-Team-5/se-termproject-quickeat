@@ -16,13 +16,13 @@ class HistoryFragment : BaseFragment<FragmentHistoryBinding>(FragmentHistoryBind
 
     //store data 초기화 - firebase 연동 후 구현
     private fun initStore(){
-        storeList
+
     }
 
     //RecyclerView 초기화
     private fun initRecyclerView(){
-        histroyRVAdapter = HistoryRVAdapter()
-        histroyRVAdapter.addData(storeList)
+        //histroyRVAdapter = HistoryRVAdapter()
+        //histroyRVAdapter.addData()
     }
 
     //필수는 아닌데
