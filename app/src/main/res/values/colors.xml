@@ -9,6 +9,12 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="gray">#FFBFBFBF</color>
+    <color name="gray_light">#FFD1D1D1</color>
+    <color name="gray_bg">#46030101</color>
     <color name="red">#FFFF000A</color>
     <color name="yellow">#FFF1C648</color>
+
+    <!-- app -->
+    <color name="primary">#FFFDD855</color>
+    <color name="primary_light">#FFFFEBA3</color>
 </resources>

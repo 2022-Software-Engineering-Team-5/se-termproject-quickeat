@@ -2,7 +2,7 @@ package com.se.termproject.ui.login;
 
 
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.ktx.Firebase;
+
 import android.content.SharedPreferences;
 import android.view.View;
 import com.se.termproject.base.java.BaseActivity;
@@ -48,7 +48,7 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
                     startNextActivity(com.se.termproject.ui.customer.MainActivity.class);
                 } else {
                     // admin mode
-                    startNextActivity(com.se.termproject.ui.admin.MainActivity.class);
+                    startNextActivity(com.se.termproject.ui.shopkeeper.MainActivity.class);
                 }
 
                 finish();
