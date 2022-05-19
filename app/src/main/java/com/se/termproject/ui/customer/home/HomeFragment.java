@@ -1,4 +1,4 @@
-package com.se.termproject.ui.main.home;
+package com.se.termproject.ui.customer.home;
 
 import com.se.termproject.base.java.BaseFragment;
 import com.se.termproject.databinding.FragmentHomeBinding;

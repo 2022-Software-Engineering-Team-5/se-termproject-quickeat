@@ -1,4 +1,4 @@
-package com.se.termproject.ui.main.setting;
+package com.se.termproject.ui.customer.setting;
 
 import com.se.termproject.base.java.BaseFragment;
 import com.se.termproject.databinding.FragmentSettingBinding;

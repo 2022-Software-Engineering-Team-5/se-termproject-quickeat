@@ -1,4 +1,4 @@
-package com.se.termproject.ui.main.bookmark;
+package com.se.termproject.ui.customer.bookmark;
 
 import com.se.termproject.base.java.BaseFragment;
 import com.se.termproject.databinding.FragmentBookmarkBinding;
