@@ -1,11 +1,11 @@
-package com.se.termproject.ui.main.home
+package com.se.termproject.ui.customer.home
 
 import androidx.recyclerview.widget.GridLayoutManager
 import com.se.termproject.R
 import com.se.termproject.base.kotlin.BaseFragment
 import com.se.termproject.databinding.FragmentHomeBinding
-import com.se.termproject.ui.main.home.MarketRV.Market
-import com.se.termproject.ui.main.home.MarketRV.MarketRVAdapter
+import com.se.termproject.ui.customer.home.MarketRVAdapter.Market
+import com.se.termproject.ui.customer.home.MarketRVAdapter.MarketRVAdapter
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
 

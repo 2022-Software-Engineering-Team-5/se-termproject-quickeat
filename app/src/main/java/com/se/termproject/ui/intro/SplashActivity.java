@@ -5,10 +5,11 @@ import android.os.Handler;
 
 import com.se.termproject.base.java.BaseActivity;
 import com.se.termproject.databinding.ActivitySplashBinding;
+import com.se.termproject.ui.admin.MainActivity;
 import com.se.termproject.ui.login.LoginActivity;
 
 @SuppressLint("CustomSplashScreen")
-public class SplashActivity extends BaseActivity<ActivitySplashBinding> {
+public class SplashActivity extends BaseActivity<ActivitySplashBinding>{
 
     @Override
     protected ActivitySplashBinding setViewBinding() {
@@ -21,7 +22,7 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding> {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                startNextActivity(MainActivity.class);
+                startNextActivity(IntroActivity.class);
                 finish();
             }
         }, 2000);

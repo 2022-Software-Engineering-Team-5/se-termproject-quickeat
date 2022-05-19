@@ -1,4 +1,4 @@
-package com.se.termproject.ui.main.home.MarketRV
+package com.se.termproject.ui.customer.home.MarketRVAdapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -16,13 +16,13 @@ class MarketRVAdapter(private val marketList: ArrayList<Market>): RecyclerView.A
         mItemClickListner = itemClickListner
     }
 
-    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): MarketRVAdapter.ViewHolder {
+    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         val binding: ItemMarketBinding = ItemMarketBinding.inflate((LayoutInflater.from(viewGroup.context)))
 
         return ViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: MarketRVAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
        holder.bind(marketList[position])
         holder.itemView.setOnClickListener { mItemClickListner.onItemClick(marketList[position]) }
     }
