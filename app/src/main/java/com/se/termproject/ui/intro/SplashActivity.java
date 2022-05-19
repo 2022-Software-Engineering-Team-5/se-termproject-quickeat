@@ -21,7 +21,7 @@ public class SplashActivity extends BaseActivity<ActivitySplashBinding> {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                startNextActivity(SplashActivity.class);
+                startNextActivity(MainActivity.class);
                 finish();
             }
         }, 2000);
