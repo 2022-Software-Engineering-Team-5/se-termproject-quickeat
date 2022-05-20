@@ -55,7 +55,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="@id/popup_window_history_review_tv" />
 
-
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

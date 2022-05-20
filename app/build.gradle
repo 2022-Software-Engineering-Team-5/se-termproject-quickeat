@@ -75,4 +75,7 @@ dependencies {
 
     // DrawerLayout
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+
+    // Kakao Map API
+    implementation files('libs/libDaumMapAndroid.jar')
 }

@@ -11,6 +11,7 @@ class MarketRVAdapter(private val marketList: ArrayList<Market>): RecyclerView.A
     interface MyItemClickListner{
         fun onItemClick(market : Market)
     }
+
     private lateinit var mItemClickListner: MyItemClickListner
 
     fun setMyItemClickListner(itemClickListner: MyItemClickListner){
