@@ -8,6 +8,7 @@ import com.google.android.material.navigation.NavigationView
 import com.se.termproject.R
 import com.se.termproject.base.kotlin.BaseActivity
 import com.se.termproject.databinding.ActivityShopkeeperBaseBinding
+import com.se.termproject.ui.intro.IntroActivity
 
 class MainActivity :
     BaseActivity<ActivityShopkeeperBaseBinding>(ActivityShopkeeperBaseBinding::inflate),
@@ -25,6 +26,11 @@ class MainActivity :
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            // 등록하기
+            R.id.menu_shopkeeper_nav_register_item -> {
+                startNextActivity(RegisterActivity::class.java)
+            }
+
             // 수정하기
             R.id.menu_shopkeeper_nav_edit_item -> {
                 Toast.makeText(this, "수정하기", Toast.LENGTH_SHORT).show()
@@ -70,5 +76,11 @@ class MainActivity :
         binding.shopkeeperMainLayout.shopkeeperOpenCloseBtn.setOnClickListener {
             Toast.makeText(this, "switch", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        startNextActivityWithClear(IntroActivity::class.java)
+        finish()
     }
 }

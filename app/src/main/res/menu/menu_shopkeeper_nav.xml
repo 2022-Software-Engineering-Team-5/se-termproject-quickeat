@@ -3,6 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/menu_shopkeeper_nav_register_item"
+        android:title="@string/menu_register"
+        android:actionLayout="@layout/action_shopkeeper_nav" />
+
+    <item
         android:id="@+id/menu_shopkeeper_nav_edit_item"
         android:title="@string/menu_edit"
         android:actionLayout="@layout/action_shopkeeper_nav" />

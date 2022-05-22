@@ -16,5 +16,8 @@ class RegisterActivity : BaseActivity<ActivityShopkeeperRegisterBinding>(Activit
 
     private fun initClickListener() {
 
+        binding.shopkeeperRegisterCheckBtn.setOnClickListener {
+            finish()
+        }
     }
 }
