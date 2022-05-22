@@ -66,7 +66,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        startNextActivityWithClear(IntroActivity.class);
         finish();
     }
 }

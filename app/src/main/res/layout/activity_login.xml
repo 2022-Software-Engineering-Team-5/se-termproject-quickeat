@@ -17,24 +17,36 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed" />
 
-    <ImageView
+    <com.google.android.gms.common.SignInButton
         android:id="@+id/login_btn"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        android:src="@drawable/btn_google_login"
         app:layout_constraintBottom_toTopOf="@id/login_signup_tv"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/login_welcome_tv"
         app:layout_constraintVertical_chainStyle="packed" />
 
+    <!--    <ImageView-->
+    <!--        android:id="@+id/login_btn"-->
+    <!--        android:layout_width="200dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginTop="10dp"-->
+    <!--        android:layout_marginBottom="10dp"-->
+    <!--        android:src="@drawable/btn_google_login"-->
+    <!--        app:layout_constraintBottom_toTopOf="@id/login_signup_tv"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/login_welcome_tv"-->
+    <!--        app:layout_constraintVertical_chainStyle="packed" />-->
+
     <TextView
         android:id="@+id/login_signup_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="-10dp"
+        android:layout_marginTop="5dp"
         android:text="@string/signup"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

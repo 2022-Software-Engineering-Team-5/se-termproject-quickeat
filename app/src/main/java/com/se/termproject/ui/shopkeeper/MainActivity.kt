@@ -80,7 +80,6 @@ class MainActivity :
 
     override fun onBackPressed() {
         super.onBackPressed()
-        startNextActivityWithClear(IntroActivity::class.java)
         finish()
     }
 }

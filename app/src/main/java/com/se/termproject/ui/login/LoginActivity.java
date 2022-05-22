@@ -1,17 +1,45 @@
 package com.se.termproject.ui.login;
 
+import android.content.Intent;
+import android.text.TextUtils;
+import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
 
-import com.google.firebase.firestore.FirebaseFirestore;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 import android.content.SharedPreferences;
-import android.view.View;
+
+import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.rpc.context.AttributeContext;
+import com.se.termproject.R;
 import com.se.termproject.base.java.BaseActivity;
 import com.se.termproject.databinding.ActivityLoginBinding;
 
 public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
-    private int mode = 0;
+    private static final String TAG = "ACT/LOGIN";
+    private static final int RC_SIGN_IN = 1000;
 
-    private static FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private int mode = 0;
+    private FirebaseAuth mAuth;
+    private GoogleSignInClient mGoogleSignInClient;
 
     @Override
     protected ActivityLoginBinding setViewBinding() {
@@ -20,13 +48,68 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
 
     @Override
     protected void initAfterBinding() {
-        // onCreate
-        //binding.loginAtLoginTv.
+        mAuth = FirebaseAuth.getInstance();
+
+        initGoogleLogin();
         initMode();
         initClickListener();
     }
 
-    // customer mode인지 admin mode인지
+    private void initGoogleLogin() {
+        // Google login API
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
+        mGoogleSignInClient = GoogleSignIn.getClient(getApplicationContext(), gso);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == RC_SIGN_IN) {
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+
+            try {
+                GoogleSignInAccount account = task.getResult(ApiException.class);
+                firebaseGoogleAuth(account);
+            } catch (ApiException e) {
+                Log.d(TAG, "로그인 실패: " + e);
+            }
+        }
+    }
+
+    private void firebaseGoogleAuth(GoogleSignInAccount account) {
+        AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
+
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful()) {
+                            Toast.makeText(getApplicationContext(), "로그인 성공", Toast.LENGTH_SHORT).show();
+
+                            // activity 전환
+                            if (mode == 0) {
+                                // customer mode
+                                startNextActivity(com.se.termproject.ui.customer.MainActivity.class);
+                                finish();
+                            } else {
+                                // admin mode
+                                startNextActivity(com.se.termproject.ui.shopkeeper.MainActivity.class);
+                                finish();
+                            }
+                        } else {
+                            Toast.makeText(getApplicationContext(), "로그인 실패", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
+
+    // customer mode인지 shopkeeper mode인지
     private void initMode() {
         SharedPreferences spf = getSharedPreferences("mode", 0);
         mode = spf.getInt("mode", 0);
@@ -35,23 +118,14 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
     // click listener
     private void initClickListener() {
 
-        // login button 클릭 시
+        // login 버튼 클릭 시
         binding.loginBtn.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-                // 여기에 login 기능 구현
+                Log.d(TAG, "loginBtn/onClick");
 
-                // login 기능 구현 뒤 activity 전환
-                if(mode == 0) {
-                    // customer mode
-                    startNextActivity(com.se.termproject.ui.customer.MainActivity.class);
-                } else {
-                    // admin mode
-                    startNextActivity(com.se.termproject.ui.shopkeeper.MainActivity.class);
-                }
-
-                finish();
+                startActivityForResult(mGoogleSignInClient.getSignInIntent(), RC_SIGN_IN);
             }
         });
     }
