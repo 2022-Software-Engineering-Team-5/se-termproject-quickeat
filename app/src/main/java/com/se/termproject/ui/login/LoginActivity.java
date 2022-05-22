@@ -60,7 +60,7 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
     private void initGoogleLogin() {
         // Google login API
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestIdToken("698089618576-5ok4me4pls0datpcpu4t3h37jsipik18.apps.googleusercontent.com")
                 .requestEmail()
                 .build();
 
