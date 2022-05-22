@@ -1,5 +1,7 @@
 package com.se.termproject.ui.login;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.text.TextUtils;
 import android.util.Log;
@@ -89,18 +91,16 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
 
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()) {
+                        if (task.isSuccessful()) {
                             Toast.makeText(getApplicationContext(), "로그인 성공", Toast.LENGTH_SHORT).show();
 
                             // activity 전환
                             if (mode == 0) {
                                 // customer mode
                                 startNextActivity(com.se.termproject.ui.customer.MainActivity.class);
-                                finish();
                             } else {
                                 // admin mode
                                 startNextActivity(com.se.termproject.ui.shopkeeper.MainActivity.class);
-                                finish();
                             }
                         } else {
                             Toast.makeText(getApplicationContext(), "로그인 실패", Toast.LENGTH_SHORT).show();
@@ -128,5 +128,39 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
                 startActivityForResult(mGoogleSignInClient.getSignInIntent(), RC_SIGN_IN);
             }
         });
+
+        // lotout 버튼 클릭 시
+        binding.loginLogoutBtn.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(view.getContext());
+                alertDialog.setMessage("로그아웃 하시겠습니까?").setCancelable(false)
+                        .setPositiveButton("네",
+                                new DialogInterface.OnClickListener() {
+
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        logout();
+                                    }
+                                })
+                        .setNegativeButton("아니오",
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        dialogInterface.cancel();
+                                    }
+                                });
+
+                AlertDialog alert = alertDialog.create();
+                alert.setTitle("로그아웃");
+                alert.show();
+            }
+        });
+    }
+
+    private void logout() {
+        mAuth.signOut();
+        mGoogleSignInClient.signOut();
     }
 }
