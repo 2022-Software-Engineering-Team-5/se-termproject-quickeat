@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menu_shopkeeper_nav_register_item"
+        android:title="@string/menu_register"
+        android:actionLayout="@layout/action_shopkeeper_nav" />
+
+    <item
+        android:id="@+id/menu_shopkeeper_nav_edit_item"
+        android:title="@string/menu_edit"
+        android:actionLayout="@layout/action_shopkeeper_nav" />
+
+    <item
+        android:id="@+id/menu_shopkeeper_nav_email_item"
+        android:title="@string/menu_email"
+        app:actionLayout="@layout/action_shopkeeper_nav" />
+
+    <item
+        android:id="@+id/menu_shopkeeper_nav_event_item"
+        android:title="@string/menu_event"
+        app:actionLayout="@layout/action_shopkeeper_nav" />
+
+    <item
+        android:id="@+id/menu_shopkeeper_nav_ask_item"
+        android:title="@string/menu_ask"
+        app:actionLayout="@layout/action_shopkeeper_nav" />
+
+    <item
+        android:id="@+id/menu_shopkeeper_nav_version_item"
+        android:title="@string/menu_version"
+        app:actionLayout="@layout/action_shopkeeper_nav" />
+</menu>

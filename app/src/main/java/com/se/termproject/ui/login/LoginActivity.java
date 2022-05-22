@@ -1,48 +1,48 @@
 package com.se.termproject.ui.login;
 
-<<<<<<< HEAD
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
-=======
 
->>>>>>> upstream/develop
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.ktx.Firebase;
 import android.content.SharedPreferences;
-import android.view.View;
+
+import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.rpc.context.AttributeContext;
+import com.se.termproject.R;
 import com.se.termproject.base.java.BaseActivity;
 import com.se.termproject.databinding.ActivityLoginBinding;
-import com.se.termproject.ui.main.MainActivity;
 
-<<<<<<< HEAD
-import java.util.HashMap;
-import java.util.Map;
-=======
 public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
+    private static final String TAG = "ACT/LOGIN";
+    private static final int RC_SIGN_IN = 1000;
+
     private int mode = 0;
->>>>>>> upstream/develop
-
-public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
-
     private FirebaseAuth mAuth;
+    private GoogleSignInClient mGoogleSignInClient;
+
     @Override
     protected ActivityLoginBinding setViewBinding() {
         return ActivityLoginBinding.inflate(getLayoutInflater());
@@ -50,60 +50,66 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
 
     @Override
     protected void initAfterBinding() {
-<<<<<<< HEAD
         mAuth = FirebaseAuth.getInstance();
 
-       //id 입력받기
-        //못 받아옴.. 로그 찍어보니까 null이 나온다.
-        //String email = binding.loginIdEt.getText().toString().trim();
-       //String password = binding.loginPasswordEt.getText().toString();
-        String email = "hello@test.com";
-        String password = "world1234";
-        Log.d("로그인",email);
-        Log.d("로그인",password);
-        binding.loginSignInBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                signIn(email, password);
-            }
-        });
-
-    }
-    //로그인
-    private void signIn(String email, String password) {
-        Log.d(TAG, "signIn:" + email);
-        //ID, PW 공란 검사
-        if (!validateForm()) {
-            return;
-        }
-
-        mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) { //로그인 성공시
-                            Log.d(TAG, "signInWithEmail:success");
-                            Toast.makeText(LoginActivity.this, "로그인 성공",
-                                    Toast.LENGTH_SHORT).show();
-                            //MainActivity로 이동
-                            //Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                            //startActivity(intent);
-                        } else {
-                            Log.w(TAG, "signInWithEmail:failure", task.getException());
-                            //현재 화면에 '로그인 실패' 토스트 문구 노출
-                            Toast.makeText(LoginActivity.this, "로그인을 실패하였습니다. 다시 확인해주세요.",
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-=======
-        // onCreate
-        //binding.loginAtLoginTv.
+        initGoogleLogin();
         initMode();
         initClickListener();
     }
 
-    // customer mode인지 admin mode인지
+    private void initGoogleLogin() {
+        // Google login API
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
+        mGoogleSignInClient = GoogleSignIn.getClient(getApplicationContext(), gso);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == RC_SIGN_IN) {
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+
+            try {
+                GoogleSignInAccount account = task.getResult(ApiException.class);
+                firebaseGoogleAuth(account);
+            } catch (ApiException e) {
+                Log.d(TAG, "로그인 실패: " + e);
+            }
+        }
+    }
+
+    private void firebaseGoogleAuth(GoogleSignInAccount account) {
+        AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
+
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(getApplicationContext(), "로그인 성공", Toast.LENGTH_SHORT).show();
+
+                            // activity 전환
+                            if (mode == 0) {
+                                // customer mode
+                                startNextActivity(com.se.termproject.ui.customer.MainActivity.class);
+                            } else {
+                                // admin mode
+                                startNextActivity(com.se.termproject.ui.shopkeeper.MainActivity.class);
+                            }
+                        } else {
+                            Toast.makeText(getApplicationContext(), "로그인 실패", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
+
+    // customer mode인지 shopkeeper mode인지
     private void initMode() {
         SharedPreferences spf = getSharedPreferences("mode", 0);
         mode = spf.getInt("mode", 0);
@@ -112,48 +118,49 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
     // click listener
     private void initClickListener() {
 
-        // login button 클릭 시
+        // login 버튼 클릭 시
         binding.loginBtn.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-                // 여기에 login 기능 구현
+                Log.d(TAG, "loginBtn/onClick");
 
-                // login 기능 구현 뒤 activity 전환
-                if(mode == 0) {
-                    // customer mode
-                    startNextActivity(com.se.termproject.ui.customer.MainActivity.class);
-                } else {
-                    // admin mode
-                    startNextActivity(com.se.termproject.ui.admin.MainActivity.class);
-                }
-
-                finish();
+                startActivityForResult(mGoogleSignInClient.getSignInIntent(), RC_SIGN_IN);
             }
         });
->>>>>>> upstream/develop
+
+        // lotout 버튼 클릭 시
+        binding.loginLogoutBtn.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(view.getContext());
+                alertDialog.setMessage("로그아웃 하시겠습니까?").setCancelable(false)
+                        .setPositiveButton("네",
+                                new DialogInterface.OnClickListener() {
+
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        logout();
+                                    }
+                                })
+                        .setNegativeButton("아니오",
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        dialogInterface.cancel();
+                                    }
+                                });
+
+                AlertDialog alert = alertDialog.create();
+                alert.setTitle("로그아웃");
+                alert.show();
+            }
+        });
     }
 
-    //폼 빈칸 체크
-    private boolean validateForm() {
-        boolean valid = true;
-
-        String email = binding.loginIdEt.getText().toString();
-        if (TextUtils.isEmpty(email)) { //아이디 editText가 공란이면
-            binding.loginIdEt.setError("아이디를 입력해주세요.");
-            valid = false;
-        } else {
-            binding.loginIdEt.setError(null);
-        }
-
-        String password = binding.loginPasswordEt.getText().toString();
-        if (TextUtils.isEmpty(password)) { //비밀번호 editText가 공란이면
-            binding.loginPasswordEt.setError("비밀번호를 입력해주세요.");
-            valid = false;
-        } else {
-            binding.loginPasswordEt.setError(null);
-        }
-        return valid;
+    private void logout() {
+        mAuth.signOut();
+        mGoogleSignInClient.signOut();
     }
-
 }

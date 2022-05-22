@@ -14,6 +14,7 @@ import com.se.termproject.ui.customer.bookmark.BookmarkFragment;
 import com.se.termproject.ui.customer.history.HistoryFragment;
 import com.se.termproject.ui.customer.home.HomeFragment;
 import com.se.termproject.ui.customer.setting.SettingFragment;
+import com.se.termproject.ui.intro.IntroActivity;
 
 public class MainActivity extends BaseActivity<ActivityMainBinding> {
     private static Fragment homeFragment, bookmarkFragment, historyFragment, settingFragment;
@@ -33,11 +34,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
         // initial setting (with HomeFragment)
         replaceFragment(homeFragment);
-
-//        getSupportFragmentManager()
-//                .beginTransaction()
-//                .replace(R.id.main_frame_layout, homeFragment)
-//                .commitAllowingStateLoss();   // or HomeFragment.newInstance()
 
         initBottomNavigationView();
     }
@@ -65,5 +61,11 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
                 return false;
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

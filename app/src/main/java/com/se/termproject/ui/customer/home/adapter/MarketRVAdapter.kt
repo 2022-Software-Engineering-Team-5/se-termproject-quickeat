@@ -1,8 +1,9 @@
-package com.se.termproject.ui.customer.home.MarketRVAdapter
+package com.se.termproject.ui.customer.home.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.se.termproject.data.Market
 import com.se.termproject.databinding.ItemMarketBinding
 
 class MarketRVAdapter(private val marketList: ArrayList<Market>): RecyclerView.Adapter<MarketRVAdapter.ViewHolder>(){
@@ -10,6 +11,7 @@ class MarketRVAdapter(private val marketList: ArrayList<Market>): RecyclerView.A
     interface MyItemClickListner{
         fun onItemClick(market : Market)
     }
+
     private lateinit var mItemClickListner: MyItemClickListner
 
     fun setMyItemClickListner(itemClickListner: MyItemClickListner){

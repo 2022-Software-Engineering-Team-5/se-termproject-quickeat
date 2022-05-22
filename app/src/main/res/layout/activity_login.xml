@@ -2,7 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/primary_light_v2">
 
     <TextView
         android:id="@+id/login_welcome_tv"
@@ -17,38 +18,42 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed" />
 
-    <ImageView
+    <com.google.android.gms.common.SignInButton
         android:id="@+id/login_btn"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        android:src="@drawable/btn_google_login"
-        app:layout_constraintBottom_toTopOf="@id/login_signup_tv"
+        app:layout_constraintBottom_toTopOf="@id/login_logout_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/login_welcome_tv"
         app:layout_constraintVertical_chainStyle="packed" />
 
-    <TextView
-        android:id="@+id/login_signup_tv"
-        android:layout_width="wrap_content"
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/login_logout_btn"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="-10dp"
-        android:text="@string/signup"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:text="@string/logout"
+        android:backgroundTint="@color/white"
+        android:elevation="30dp"
+        app:layout_constraintVertical_chainStyle="packed"
         app:layout_constraintTop_toBottomOf="@id/login_btn"
-        app:layout_constraintVertical_chainStyle="packed" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-    <View
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_marginTop="2dp"
-        android:background="@color/gray"
-        app:layout_constraintEnd_toEndOf="@id/login_signup_tv"
-        app:layout_constraintStart_toStartOf="@id/login_signup_tv"
-        app:layout_constraintTop_toBottomOf="@id/login_signup_tv" />
+    <!--    <ImageView-->
+    <!--        android:id="@+id/login_btn"-->
+    <!--        android:layout_width="200dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginTop="10dp"-->
+    <!--        android:layout_marginBottom="10dp"-->
+    <!--        android:src="@drawable/btn_google_login"-->
+    <!--        app:layout_constraintBottom_toTopOf="@id/login_signup_tv"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/login_welcome_tv"-->
+    <!--        app:layout_constraintVertical_chainStyle="packed" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,6 +8,13 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 
+/**
+ * Base template for fragment
+ * in Kotlin
+ *
+ * @author Nam Seonwoo
+ * @param <VB> for ViewBinding
+ */
 abstract class BaseFragment<VB : ViewBinding>(private val inflate: (LayoutInflater) -> VB) :
     Fragment() {
     private var _binding: VB? = null
