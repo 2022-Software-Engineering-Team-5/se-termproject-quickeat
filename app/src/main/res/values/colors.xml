@@ -17,4 +17,5 @@
     <!-- app -->
     <color name="primary">#FFFDD855</color>
     <color name="primary_light">#FFFFEBA3</color>
+    <color name="primary_light_v2">#4DFFEBA3</color>
 </resources>
