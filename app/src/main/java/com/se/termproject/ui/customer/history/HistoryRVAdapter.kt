@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.se.termproject.databinding.ItemHistoryStoreBinding
+import com.se.termproject.ui.customer.history.Store
 
 
 class HistoryRVAdapter(private var marketList : ArrayList<Store>) : RecyclerView.Adapter<HistoryRVAdapter.ViewHolder>() {

@@ -1,4 +1,4 @@
-package com.se.termproject.ui.main.history
+package com.se.termproject.ui.customer.history
 
 data class Store(
     var image : Int? = null ,

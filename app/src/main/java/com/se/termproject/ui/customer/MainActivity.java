@@ -1,6 +1,7 @@
 package com.se.termproject.ui.customer;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
@@ -11,9 +12,9 @@ import com.se.termproject.R;
 import com.se.termproject.base.java.BaseActivity;
 import com.se.termproject.databinding.ActivityMainBinding;
 import com.se.termproject.ui.customer.bookmark.BookmarkFragment;
-import com.se.termproject.ui.customer.history.HistoryFragment;
 import com.se.termproject.ui.customer.home.HomeFragment;
 import com.se.termproject.ui.customer.setting.SettingFragment;
+import com.se.termproject.ui.main.history.HistoryFragment;
 
 public class MainActivity extends BaseActivity<ActivityMainBinding> {
     private static Fragment homeFragment, bookmarkFragment, historyFragment, settingFragment;

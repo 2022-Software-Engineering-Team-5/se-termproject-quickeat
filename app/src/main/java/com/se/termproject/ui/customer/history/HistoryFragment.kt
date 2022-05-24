@@ -2,6 +2,7 @@ package com.se.termproject.ui.main.history
 
 import com.se.termproject.base.kotlin.BaseFragment
 import com.se.termproject.databinding.FragmentHistoryBinding
+import com.se.termproject.ui.customer.history.Store
 
 class HistoryFragment : BaseFragment<FragmentHistoryBinding>(FragmentHistoryBinding::inflate) {
     private var storeData = ArrayList<Store>()
