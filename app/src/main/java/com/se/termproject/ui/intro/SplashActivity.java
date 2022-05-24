@@ -5,8 +5,6 @@ import android.os.Handler;
 
 import com.se.termproject.base.java.BaseActivity;
 import com.se.termproject.databinding.ActivitySplashBinding;
-import com.se.termproject.ui.admin.MainActivity;
-import com.se.termproject.ui.login.LoginActivity;
 
 @SuppressLint("CustomSplashScreen")
 public class SplashActivity extends BaseActivity<ActivitySplashBinding>{

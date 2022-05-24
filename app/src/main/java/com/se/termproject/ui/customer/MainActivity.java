@@ -1,7 +1,6 @@
 package com.se.termproject.ui.customer;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
@@ -35,11 +34,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
         // initial setting (with HomeFragment)
         replaceFragment(homeFragment);
 
-//        getSupportFragmentManager()
-//                .beginTransaction()
-//                .replace(R.id.main_frame_layout, homeFragment)
-//                .commitAllowingStateLoss();   // or HomeFragment.newInstance()
-
         initBottomNavigationView();
     }
 
@@ -66,5 +60,11 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
                 return false;
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

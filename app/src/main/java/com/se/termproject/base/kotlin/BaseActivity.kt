@@ -14,6 +14,13 @@ import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 import com.se.termproject.R
 
+/**
+ * Base template for activity
+ * in Kotlin
+ *
+ * @author Nam Seonwoo
+ * @param <VB> ViewBinding
+ */
 abstract class BaseActivity<VB: ViewBinding>(private val inflate: (LayoutInflater) -> VB) :
     AppCompatActivity() {
     protected lateinit var binding: VB

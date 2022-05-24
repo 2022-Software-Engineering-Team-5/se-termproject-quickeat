@@ -11,6 +11,13 @@ import androidx.viewbinding.ViewBinding;
 
 import com.se.termproject.R;
 
+/**
+ * Base template for activity
+ * in Java
+ *
+ * @author Nam Seonwoo
+ * @param <VB> for ViewBinding
+ */
 public abstract class BaseActivity<VB extends ViewBinding> extends AppCompatActivity {
     public final String TAG = getClass().getSimpleName();
     public VB binding;

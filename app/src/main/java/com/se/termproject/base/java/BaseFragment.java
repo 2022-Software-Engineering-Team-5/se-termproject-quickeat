@@ -11,6 +11,13 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.viewbinding.ViewBinding;
 
+/**
+ * Base template for fragment
+ * in Java
+ *
+ * @author Nam Seonwoo
+ * @param <VB> for ViewBinding
+ */
 public abstract class BaseFragment<VB extends ViewBinding> extends Fragment {
     public final String TAG = getClass().getSimpleName();
     private VB binding;

@@ -1,10 +1,15 @@
 package com.se.termproject.ui.intro
 
-import android.content.Intent
 import android.content.SharedPreferences
+import android.content.pm.PackageInfo
+import android.content.pm.PackageManager
+import android.util.Base64
+import android.util.Log
 import com.se.termproject.base.kotlin.BaseActivity
 import com.se.termproject.databinding.ActivityIntroBinding
 import com.se.termproject.ui.login.LoginActivity
+import java.security.MessageDigest
+import java.security.NoSuchAlgorithmException
 
 class IntroActivity : BaseActivity<ActivityIntroBinding>(ActivityIntroBinding::inflate) {
     private lateinit var mSharedPreferences: SharedPreferences

@@ -1,4 +1,4 @@
-package com.se.termproject.ui.customer.home.MarketRVAdapter
+package com.se.termproject.data
 
 data class Market(
     var name : String = "",
