@@ -1,12 +1,10 @@
-package com.se.termproject.ui.main.history
+package com.se.termproject.ui.customer.history
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.se.termproject.databinding.ItemHistoryStoreBinding
-import com.se.termproject.ui.customer.history.Store
-
 
 class HistoryRVAdapter(private var marketList : ArrayList<Store>) : RecyclerView.Adapter<HistoryRVAdapter.ViewHolder>() {
 
@@ -19,13 +17,13 @@ class HistoryRVAdapter(private var marketList : ArrayList<Store>) : RecyclerView
     }
 
     // ViewHolder 생성
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HistoryRVAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding: ItemHistoryStoreBinding = ItemHistoryStoreBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
     // ViewHolder binding
-    override fun onBindViewHolder(holder: HistoryRVAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(marketList[position])
     }
 

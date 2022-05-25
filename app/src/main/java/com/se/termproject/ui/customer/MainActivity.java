@@ -13,7 +13,7 @@ import com.se.termproject.databinding.ActivityMainBinding;
 import com.se.termproject.ui.customer.bookmark.BookmarkFragment;
 import com.se.termproject.ui.customer.home.HomeFragment;
 import com.se.termproject.ui.customer.setting.SettingFragment;
-import com.se.termproject.ui.main.history.HistoryFragment;
+import com.se.termproject.ui.customer.history.HistoryFragment;
 
 public class MainActivity extends BaseActivity<ActivityMainBinding> {
     private static Fragment homeFragment, bookmarkFragment, historyFragment, settingFragment;

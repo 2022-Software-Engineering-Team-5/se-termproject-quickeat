@@ -53,4 +53,10 @@
     <string name="setting_ask">문의하기</string>
     <string name="setting_version">버전 정보: 1.00</string>
 
+    <!-- history -->
+    <string name="nickname">닉네임</string>
+    <string name="email">이메일</string>
+    <string name="numberOfStore">가게수</string>
+    
+
 </resources>

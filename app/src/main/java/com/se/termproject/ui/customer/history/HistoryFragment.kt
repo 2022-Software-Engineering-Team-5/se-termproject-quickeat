@@ -1,7 +1,8 @@
-package com.se.termproject.ui.main.history
+package com.se.termproject.ui.customer.history
 
 import com.se.termproject.base.kotlin.BaseFragment
 import com.se.termproject.databinding.FragmentHistoryBinding
+import com.se.termproject.ui.customer.history.HistoryRVAdapter
 import com.se.termproject.ui.customer.history.Store
 
 class HistoryFragment : BaseFragment<FragmentHistoryBinding>(FragmentHistoryBinding::inflate) {
@@ -22,11 +23,10 @@ class HistoryFragment : BaseFragment<FragmentHistoryBinding>(FragmentHistoryBind
 
     //RecyclerView 초기화
     private fun initRecyclerView(){
-        //histroyRVAdapter = HistoryRVAdapter()
-        //histroyRVAdapter.addData()
+        histroyRVAdapter = HistoryRVAdapter(storeData)
+        binding.rankingRv.adapter = histroyRVAdapter
     }
 
-    //필수는 아닌데
     private fun binding(){
 
     }
