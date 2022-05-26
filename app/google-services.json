@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "698089618576",
+    "firebase_url": "https://restaurant-information-service-default-rtdb.firebaseio.com",
     "project_id": "restaurant-information-service",
     "storage_bucket": "restaurant-information-service.appspot.com"
   },
@@ -13,6 +14,22 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "698089618576-81h60avjp153vem4acdltil0784b2eld.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.se.termproject",
+            "certificate_hash": "55f45d128815a0efc58db67e2b53f27e7d8cf622"
+          }
+        },
+        {
+          "client_id": "698089618576-bv7mc6anm63rjlfm35t8p4dbeoqnad27.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.se.termproject",
+            "certificate_hash": "1e04a0bcdce3a6b6306189753daffc9a6fa8a6f2"
+          }
+        },
         {
           "client_id": "698089618576-igsdh65psvd4k2oqpdatvd5d0cau8j00.apps.googleusercontent.com",
           "client_type": 1,
