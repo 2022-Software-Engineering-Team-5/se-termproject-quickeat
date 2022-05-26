@@ -20,7 +20,7 @@ import androidx.viewbinding.ViewBinding;
  */
 public abstract class BaseFragment<VB extends ViewBinding> extends Fragment {
     public final String TAG = getClass().getSimpleName();
-    private VB binding;
+    public VB binding;
 
 //    public abstract Fragment newInstance();
 
