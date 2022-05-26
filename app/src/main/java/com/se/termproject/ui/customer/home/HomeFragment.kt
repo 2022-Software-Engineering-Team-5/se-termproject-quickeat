@@ -9,62 +9,43 @@ import android.widget.PopupWindow
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.AppCompatButton
 import androidx.recyclerview.widget.GridLayoutManager
 import com.se.termproject.R
 import com.se.termproject.base.kotlin.BaseFragment
+import com.se.termproject.data.Shop
 import com.se.termproject.databinding.FragmentHomeBinding
-import com.se.termproject.data.Market
-import com.se.termproject.ui.customer.home.adapter.MarketRVAdapter
+import com.se.termproject.ui.customer.home.adapter.ShopRVAdapter
 import net.daum.mf.map.api.MapPOIItem
 import net.daum.mf.map.api.MapPoint
 import net.daum.mf.map.api.MapView
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
-    private var markets = ArrayList<Market>()
+    private var shops = ArrayList<Shop>()
 
-    private lateinit var marketRVAdapter: MarketRVAdapter
+    private lateinit var shopRVAdapter: ShopRVAdapter
     private lateinit var mPopupWindow: PopupWindow
 
     // after onCreate()
     override fun initAfterBinding() {
-        initData()
         initRecyclerView()
-    }
-
-    // initialize data set (yet dummy data)
-    private fun initData() {
-        if (markets.isEmpty()) {
-            markets.apply{
-                add(Market("호식당",R.drawable.ic_logo))
-                add(Market("태평돈가스",R.drawable.ic_logo))
-                add(Market("맘보",R.drawable.ic_logo))
-                add(Market("푸드타운",R.drawable.ic_logo))
-                add(Market("행복로드",R.drawable.ic_logo))
-                add(Market("내가 반한 닭",R.drawable.ic_logo))
-                add(Market("코뿡하우스",R.drawable.ic_logo))
-                add(Market("육연차",R.drawable.ic_logo))
-                add(Market("신의 한컵",R.drawable.ic_logo))
-            }
-        }
     }
 
     // initialize RecyclerView
     private fun initRecyclerView() {
-        marketRVAdapter = MarketRVAdapter(markets)
-        binding.homeMarketsRecyclerView.adapter = marketRVAdapter
+        shopRVAdapter = ShopRVAdapter(shops)
+        binding.homeMarketsRecyclerView.adapter = shopRVAdapter
         binding.homeMarketsRecyclerView.layoutManager = GridLayoutManager(context, 3)
 
-        marketRVAdapter.setMyItemClickListner(object : MarketRVAdapter.MyItemClickListner{
-            override fun onItemClick(market: Market) {
-                openPopupWindow(market)
+        shopRVAdapter.setMyItemClickListner(object : ShopRVAdapter.MyItemClickListner{
+            override fun onItemClick(shop: Shop) {
+                openPopupWindow(shop)
             }
         })
     }
 
     // open PopupWindow for market information
     @SuppressLint("InflateParams")
-    private fun openPopupWindow(market: Market) {
+    private fun openPopupWindow(shop: Shop) {
         val size = activity?.windowManager?.currentWindowMetricsPointCompat()
         val width = ((size?.x ?: 0) * 0.8f).toInt()
         val height = ((size?.y ?: 0) * 0.4f).toInt()
@@ -88,7 +69,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         initKakaoMapApi()
 
         // data
-        popupView.findViewById<TextView>(R.id.popup_window_market_name_tv).text = market.name
+        popupView.findViewById<TextView>(R.id.popup_window_market_name_tv).text = shop.name
     }
 
     // initialize kakao map api
