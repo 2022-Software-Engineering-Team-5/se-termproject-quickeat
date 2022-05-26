@@ -1,22 +1,68 @@
 package com.se.termproject.ui.shopkeeper
 
+import android.util.Log
 import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.view.GravityCompat
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.*
+import com.google.firebase.ktx.Firebase
 import com.se.termproject.R
 import com.se.termproject.base.kotlin.BaseActivity
+import com.se.termproject.data.Shop
 import com.se.termproject.databinding.ActivityShopkeeperBaseBinding
-import com.se.termproject.ui.intro.IntroActivity
+import com.se.termproject.util.getUserId
+import com.se.termproject.util.saveUserId
 
 class MainActivity :
     BaseActivity<ActivityShopkeeperBaseBinding>(ActivityShopkeeperBaseBinding::inflate),
     NavigationView.OnNavigationItemSelectedListener {
+    companion object {
+        private const val TAG = "ACT/MAIN"
+        private lateinit var USER_ID: String
+    }
+
+    private lateinit var user: FirebaseUser
+    private lateinit var mDatabase: FirebaseDatabase
+    private lateinit var mShopsReference: DatabaseReference
+    private lateinit var mShopReference: DatabaseReference
+    private lateinit var mChildEventListener: ChildEventListener
 
     override fun initAfterBinding() {
+        mDatabase = FirebaseDatabase.getInstance()
+        mShopsReference = mDatabase.getReference("shops")
+
+        // 사용자 입력 받아오기
+        user = Firebase.auth.currentUser!!
+        saveUserId(user.uid)
+        USER_ID = getUserId()!!
+
+        initData()
         initDrawerLayout()
         initClickListener()
+    }
+
+    private fun initData() {
+        mShopReference = mDatabase.getReference("shops").child(USER_ID)
+        mShopsReference.addValueEventListener(object : ValueEventListener {
+
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+//                if (dataSnapshot.getValue(Shop::class.java) == null) return
+
+                val shop: Shop = dataSnapshot.getValue(Shop::class.java)!!
+                Log.d(TAG, "shop: $shop")
+
+                binding.shopkeeperMainLayout.shopkeeperNameTv.text = shop.name
+                binding.shopkeeperMainLayout.shopkeeperTotalTableCountTv.text = shop.totalTableCount.toString()
+                binding.shopkeeperMainLayout.shopkeeperAvailableTableCountTv.text = shop.availableTableCount.toString()
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) { }
+
+        })
     }
 
     // drawer layout 초기화

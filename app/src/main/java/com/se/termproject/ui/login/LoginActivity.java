@@ -1,5 +1,7 @@
 package com.se.termproject.ui.login;
 
+import static com.se.termproject.util.ApplicationClass.USER_ID;
+
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -30,6 +32,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import android.content.SharedPreferences;
 
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.ktx.Firebase;
 import com.google.rpc.context.AttributeContext;
 import com.se.termproject.R;
 import com.se.termproject.base.java.BaseActivity;
