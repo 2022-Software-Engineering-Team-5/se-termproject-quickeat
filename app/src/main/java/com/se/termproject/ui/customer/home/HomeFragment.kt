@@ -10,34 +10,80 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.*
 import com.se.termproject.R
 import com.se.termproject.base.kotlin.BaseFragment
 import com.se.termproject.data.Shop
 import com.se.termproject.databinding.FragmentHomeBinding
 import com.se.termproject.ui.customer.home.adapter.ShopRVAdapter
+import com.se.termproject.util.ApplicationClass.Companion.USER_ID
+import com.se.termproject.util.getUserId
 import net.daum.mf.map.api.MapPOIItem
 import net.daum.mf.map.api.MapPoint
 import net.daum.mf.map.api.MapView
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
-    private var shops = ArrayList<Shop>()
+    companion object { private const val TAG = "FRAG/HOME" }
 
+    private var shops = ArrayList<Shop>()
+    private var shopIdx: Int = 0
+    private var latitude: Double = 0.0
+    private var longitude: Double = 0.0
+
+    private lateinit var selectedShop: Shop
     private lateinit var shopRVAdapter: ShopRVAdapter
     private lateinit var mPopupWindow: PopupWindow
 
+    // firebase
+    private lateinit var mDatabase: FirebaseDatabase
+    private lateinit var mShopsReference: DatabaseReference
+
     // after onCreate()
     override fun initAfterBinding() {
+        initReference()
+        USER_ID = getUserId()!!
+        shopRVAdapter = ShopRVAdapter() // initialize RecyclerView adapter
+
         initRecyclerView()
+    }
+
+    // initialize firebase reference
+    private fun initReference() {
+        mDatabase = FirebaseDatabase.getInstance()
+        mShopsReference = mDatabase.getReference("shops")
+
+        // get data from realtime database
+        mShopsReference.addValueEventListener(object : ValueEventListener {
+
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                shops.clear()
+
+                for (data in dataSnapshot.children) {
+                    val shop = data.getValue(Shop::class.java)!!
+                    shops.add(shop)
+                }
+
+                shopRVAdapter.addData(shops)
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {}
+
+        })
     }
 
     // initialize RecyclerView
     private fun initRecyclerView() {
-        shopRVAdapter = ShopRVAdapter(shops)
         binding.homeMarketsRecyclerView.adapter = shopRVAdapter
         binding.homeMarketsRecyclerView.layoutManager = GridLayoutManager(context, 3)
 
         shopRVAdapter.setMyItemClickListner(object : ShopRVAdapter.MyItemClickListner{
-            override fun onItemClick(shop: Shop) {
+            override fun onItemClick(shop: Shop, position: Int) {
+                selectedShop = shop
+                shopIdx = position
+                latitude = shop.latitude
+                longitude = shop.longitude
+
                 openPopupWindow(shop)
             }
         })
@@ -68,8 +114,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         // kakao map api
         initKakaoMapApi()
 
-        // data
-        popupView.findViewById<TextView>(R.id.popup_window_market_name_tv).text = shop.name
+        // data binding
+        popupView.findViewById<TextView>(R.id.popup_window_market_name_tv).text = selectedShop.name
+        popupView.findViewById<TextView>(R.id.popup_window_total_table_count_tv).text = selectedShop.totalTableCount.toString()
+        popupView.findViewById<TextView>(R.id.popup_window_available_table_count_tv).text = selectedShop.availableTableCount.toString()
+
+        // TODO: (이용 가능한 테이블 수 혹은 사용 중인 테이블 수 / 전체 테이블 수) 비율 구해서 신호등 표시해주기
     }
 
     // initialize kakao map api
@@ -78,20 +128,25 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         val container = mPopupWindow.contentView.findViewById<RelativeLayout>(R.id.popup_window_market_location_map_container)
         container.addView(mapView)
 
-        // change center point
-        mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(0.0, 0.0), true);
-
-        // change zoom level
-        mapView.setZoomLevel(7, true)
-
-        // zoom in
-        mapView.zoomIn(true)
-
-        // zoom out
-        mapView.zoomOut(true)
+        mapView.apply {
+            setMapCenterPoint(MapPoint.mapPointWithGeoCoord(latitude, longitude), true)
+            setZoomLevel(1, true)
+        }
 
         // add marker
+        val markerPoint = MapPoint.mapPointWithGeoCoord(latitude, longitude)
         val marker = MapPOIItem()
+
+        marker.apply {
+            itemName = selectedShop.name
+            tag = shopIdx
+            mapPoint = markerPoint
+            markerType = MapPOIItem.MarkerType.CustomImage
+            customImageResourceId = R.drawable.ic_mini_marker
+            isCustomImageAutoscale = true
+            setCustomImageAnchor(0.5f, 1.0f)
+        }
+
         mapView.addPOIItem(marker)
     }
 }

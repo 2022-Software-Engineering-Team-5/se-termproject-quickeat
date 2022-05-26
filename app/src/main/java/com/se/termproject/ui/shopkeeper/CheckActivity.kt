@@ -6,13 +6,13 @@ import com.google.firebase.database.*
 import com.google.firebase.ktx.Firebase
 import com.se.termproject.base.kotlin.BaseActivity
 import com.se.termproject.data.Shop
-import com.se.termproject.databinding.ActivityShopkeeperCheckBinding
+import com.se.termproject.databinding.ActivityCheckBinding
 import com.se.termproject.util.ApplicationClass.Companion.USER_ID
 import com.se.termproject.util.getUserId
 import com.se.termproject.util.saveUserId
 
 class CheckActivity :
-    BaseActivity<ActivityShopkeeperCheckBinding>(ActivityShopkeeperCheckBinding::inflate) {
+    BaseActivity<ActivityCheckBinding>(ActivityCheckBinding::inflate) {
     companion object {
         private const val TAG = "ACT/CHECK"
     }

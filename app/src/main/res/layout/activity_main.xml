@@ -10,23 +10,53 @@
         android:id="@+id/main_frame_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/main_bnv"
+        app:layout_constraintBottom_toTopOf="@id/main_bnv_rl"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/main_bnv"
+    <RelativeLayout
+        android:id="@+id/main_bnv_rl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:itemBackground="@color/white"
-        app:itemIconSize="25dp"
-        app:itemIconTint="@drawable/selector_main_bnv_icon"
-        app:itemTextColor="@drawable/selector_main_bnv_icon"
-        app:labelVisibilityMode="unlabeled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignTop="@id/main_bnv"
+            android:background="@drawable/gradient_gray" />
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/main_bnv"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_marginTop="10dp"
+            android:translationZ="20dp"
+            app:itemBackground="@color/white"
+            app:itemIconSize="25dp"
+            app:itemIconTint="@drawable/selector_main_bnv_icon"
+            app:itemTextColor="@drawable/selector_main_bnv_icon"
+            app:labelVisibilityMode="labeled"
+            app:menu="@menu/menu_main_bnv" />
+
+    </RelativeLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/main_home_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="28dp"
+        android:backgroundTint="@android:color/transparent"
+        android:src="@drawable/ic_logo_circle"
+        app:borderWidth="0dp"
+        app:fabCustomSize="60dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/menu_main_bnv" />
+        app:maxImageSize="60dp"
+        app:tint="@null" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
