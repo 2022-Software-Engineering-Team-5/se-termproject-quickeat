@@ -67,7 +67,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="50dp"
         android:layout_marginEnd="20dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@id/shopkeeper_available_table_count_cl"
@@ -101,49 +101,127 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginStart="30dp"
+        android:layout_marginTop="50dp"
         android:layout_marginEnd="30dp"
-        app:layout_constraintBottom_toTopOf="@id/shopkeeper_percentage_ll"
+        android:layout_marginBottom="50dp"
+        android:background="@drawable/bg_shopkeeper_total_table_count"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/shopkeeper_total_table_count_ll">
 
+        <TextView
+            android:id="@+id/shopkeeper_available_table_count_title_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:fontFamily="sans-serif"
+            android:text="@string/shopkeeper_available_table_count"
+            android:textColor="@color/black"
+            android:textSize="22sp"
+            app:layout_constraintBottom_toTopOf="@id/shopkeeper_bg_available_table_count_iv"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <ImageView
+            android:id="@+id/shopkeeper_bg_available_table_count_iv"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/bg_circle_white"
+            app:layout_constraintBottom_toTopOf="@id/shopkeeper_available_table_count_check_btn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/shopkeeper_available_table_count_title_tv"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <EditText
+            android:id="@+id/shopkeeper_available_table_count_et"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@android:color/transparent"
+            android:fontFamily="sans-serif-black"
+            android:text="@string/count"
+            android:textAlignment="center"
+            android:textSize="40sp"
+            app:layout_constraintBottom_toBottomOf="@id/shopkeeper_bg_available_table_count_iv"
+            app:layout_constraintEnd_toEndOf="@id/shopkeeper_bg_available_table_count_iv"
+            app:layout_constraintStart_toStartOf="@id/shopkeeper_bg_available_table_count_iv"
+            app:layout_constraintTop_toTopOf="@id/shopkeeper_bg_available_table_count_iv"
+            app:layout_constraintVertical_chainStyle="packed" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/shopkeeper_available_table_count_check_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@color/gray_light"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:text="@string/check"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/shopkeeper_bg_available_table_count_iv"
+            app:layout_constraintStart_toStartOf="@id/shopkeeper_bg_available_table_count_iv"
+            app:layout_constraintTop_toBottomOf="@id/shopkeeper_bg_available_table_count_iv" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <LinearLayout
-        android:id="@+id/shopkeeper_percentage_ll"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="80dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/shopkeeper_available_table_count_cl">
+    <!--    <TextView-->
+    <!--        android:id="@+id/shopkeeper_percentage_tv"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_gravity="center_horizontal"-->
+    <!--        android:layout_marginEnd="20dp"-->
+    <!--        android:layout_marginBottom="80dp"-->
+    <!--        android:fontFamily="sans-serif-black"-->
+    <!--        android:text="@string/shopkeeper_percentage"-->
+    <!--        android:textColor="@color/black"-->
+    <!--        android:textSize="32sp"-->
+    <!--        android:textStyle="bold"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/shopkeeper_available_table_count_cl"-->
+    <!--        app:layout_goneMarginTop="20dp" />-->
 
-        <TextView
-            android:id="@+id/shopkeeper_percentage_title_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/shopkeeper_percentage_title"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+    <!--    <LinearLayout-->
+    <!--        android:id="@+id/shopkeeper_percentage_ll"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginStart="20dp"-->
+    <!--        android:layout_marginTop="20dp"-->
+    <!--        android:layout_marginEnd="20dp"-->
+    <!--        android:layout_marginBottom="80dp"-->
+    <!--        android:orientation="vertical"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/shopkeeper_available_table_count_cl">-->
 
-        <TextView
-            android:id="@+id/shopkeeper_percentage_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="20dp"
-            android:text="@string/shopkeeper_percentage"
-            android:textColor="@color/black"
-            android:textSize="24sp" />
+    <!--        <TextView-->
+    <!--            android:id="@+id/shopkeeper_percentage_title_tv"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_gravity="center"-->
+    <!--            android:text="@string/shopkeeper_percentage_title"-->
+    <!--            android:textSize="20sp"-->
+    <!--            android:textStyle="bold" />-->
 
-    </LinearLayout>
+    <!--        <TextView-->
+    <!--            android:id="@+id/shopkeeper_percentage_tv"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_gravity="center_horizontal"-->
+    <!--            android:layout_marginTop="10dp"-->
+    <!--            android:layout_marginEnd="20dp"-->
+    <!--            android:text="@string/shopkeeper_percentage"-->
+    <!--            android:textColor="@color/black"-->
+    <!--            android:textSize="24sp" />-->
+
+    <!--    </LinearLayout>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

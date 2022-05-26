@@ -58,8 +58,7 @@ class MainActivity :
                 binding.shopkeeperMainLayout.shopkeeperNameTv.text = shop.name
                 binding.shopkeeperMainLayout.shopkeeperTotalTableCountTv.text =
                     shop.totalTableCount.toString()
-                binding.shopkeeperMainLayout.shopkeeperAvailableTableCountTv.text =
-                    shop.availableTableCount.toString()
+                binding.shopkeeperMainLayout.shopkeeperAvailableTableCountEt.setText(shop.availableTableCount.toString())
             }
 
             override fun onCancelled(databaseError: DatabaseError) {}
@@ -110,6 +109,7 @@ class MainActivity :
 
     // click listener 초기화
     private fun initClickListener() {
+        // 설정 아이콘 클릭 시
         binding.shopkeeperMainLayout.shopkeeperMenuSettingIv.setOnClickListener {
             if (!binding.shopkeeperBaseLayout.isDrawerOpen(GravityCompat.END)) {
                 binding.shopkeeperBaseLayout.openDrawer(GravityCompat.END)
@@ -121,8 +121,12 @@ class MainActivity :
             binding.shopkeeperBaseLayout.closeDrawer(GravityCompat.END)
         }
 
-        binding.shopkeeperMainLayout.shopkeeperOpenCloseBtn.setOnClickListener {
-            Toast.makeText(this, "switch", Toast.LENGTH_SHORT).show()
+        // 확인 버튼 클릭 시
+        binding.shopkeeperMainLayout.shopkeeperAvailableTableCountCheckBtn.setOnClickListener {
+            val availableTableCount: Int = Integer.parseInt(binding.shopkeeperMainLayout.shopkeeperAvailableTableCountEt.text.toString())
+
+            // update data
+            mShopsReference.child(USER_ID).child("availableTableCount").setValue(availableTableCount)
         }
     }
 

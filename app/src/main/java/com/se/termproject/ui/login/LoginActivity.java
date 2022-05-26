@@ -1,6 +1,7 @@
 package com.se.termproject.ui.login;
 
 import static com.se.termproject.util.ApplicationClass.USER_ID;
+import static com.se.termproject.util.SharedPreferencesManagerKt.saveUserId;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -38,6 +39,9 @@ import com.se.termproject.R;
 import com.se.termproject.base.java.BaseActivity;
 import com.se.termproject.databinding.ActivityLoginBinding;
 import com.se.termproject.ui.shopkeeper.CheckActivity;
+import com.se.termproject.util.SharedPreferencesManagerKt;
+
+import java.util.Objects;
 
 public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
     private static final String TAG = "ACT/LOGIN";
@@ -97,6 +101,9 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             Toast.makeText(getApplicationContext(), "로그인 성공", Toast.LENGTH_SHORT).show();
+
+                            saveUserId(Objects.requireNonNull(mAuth.getCurrentUser()).getUid());
+                            USER_ID = SharedPreferencesManagerKt.getUserId();
 
                             // activity 전환
                             if (mode == 0) {
@@ -166,6 +173,7 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
     }
 
     private void logout() {
+        saveUserId("");
         mAuth.signOut();
         mGoogleSignInClient.signOut();
     }

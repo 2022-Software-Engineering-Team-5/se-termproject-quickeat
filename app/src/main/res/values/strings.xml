@@ -34,7 +34,7 @@
     <string name="shop_introduction">가게 소개</string>
     <string name="shopkeeper_open_close">오픈 여부</string>
     <string name="shopkeeper_total_table_count">전체 테이블 개수</string>
-    <string name="shopkeeper_available_table_count">이용 가능한 테이블 개수</string>
+    <string name="shopkeeper_available_table_count">이용 가능한 테이블 수:</string>
     <string name="count">0</string>
     <string name="shopkeeper_table_type">1인 테이블</string>
 
