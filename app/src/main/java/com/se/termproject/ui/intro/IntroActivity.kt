@@ -8,6 +8,7 @@ import android.util.Log
 import com.se.termproject.base.kotlin.BaseActivity
 import com.se.termproject.databinding.ActivityIntroBinding
 import com.se.termproject.ui.login.LoginActivity
+import com.se.termproject.ui.shopkeeper.CheckActivity
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 

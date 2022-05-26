@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.se.termproject">
-    <uses-permission android:name="android.permission.INTERNET"/>
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -38,6 +37,7 @@
         <activity android:name=".ui.intro.IntroActivity" />
         <activity android:name=".ui.login.LoginActivity" />
 
+        <activity android:name=".ui.shopkeeper.CheckActivity" />
         <activity android:name=".ui.shopkeeper.MainActivity" />
         <activity android:name=".ui.shopkeeper.RegisterActivity" />
 

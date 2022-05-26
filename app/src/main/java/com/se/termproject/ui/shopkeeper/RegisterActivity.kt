@@ -25,7 +25,7 @@ import net.daum.mf.map.api.MapView
 class RegisterActivity :
     BaseActivity<ActivityShopkeeperRegisterBinding>(ActivityShopkeeperRegisterBinding::inflate) {
     companion object {
-        private const val TAG = "ACT/MAIN"
+        private const val TAG = "ACT/REGISTER"
         private lateinit var USER_ID: String
 
 //        private val GPS_ENABLE_REQUEST_CODE: Int = 2001
@@ -47,8 +47,8 @@ class RegisterActivity :
     private lateinit var mShopsReference: DatabaseReference
 
     override fun initAfterBinding() {
-        mDatabase = FirebaseDatabase.getInstance()
-        mShopsReference = mDatabase.getReference("shops")
+        initReference()
+
         ActivityCompat.requestPermissions(
             this,
             arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
@@ -62,6 +62,11 @@ class RegisterActivity :
         mShopsReference.setValue(USER_ID)
 
         initClickListener()
+    }
+
+    private fun initReference() {
+        mDatabase = FirebaseDatabase.getInstance()
+        mShopsReference = mDatabase.getReference("shops")
     }
 
     private fun startLocationService() {
@@ -105,6 +110,7 @@ class RegisterActivity :
             startLocationService()
         }
 
+        // check
         binding.shopkeeperRegisterCheckBtn.setOnClickListener {
             val shopName = binding.shopkeeperRegisterShopNameEt.text.toString()
             val shopDesc = binding.shopkeeperRegisterShopDescriptionEt.text.toString()
@@ -114,11 +120,14 @@ class RegisterActivity :
 //                Integer.parseInt(binding.shopkeeperRegisterTableTypeEt.text.toString())
 
             val shop = Shop(shopName, shopDesc, latitude, longitude, totalTableCount, 0)
+
             mShopsReference.child(USER_ID).setValue(shop)
                 .addOnSuccessListener {
                     Toast.makeText(this, "등록 완료", Toast.LENGTH_SHORT).show()
+                    startNextActivity(MainActivity::class.java)
                     finish()
-                }.addOnFailureListener {
+                }
+                .addOnFailureListener {
                     Toast.makeText(this, "등록 실패", Toast.LENGTH_SHORT).show()
                 }
 

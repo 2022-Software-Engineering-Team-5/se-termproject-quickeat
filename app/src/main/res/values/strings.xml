@@ -59,6 +59,9 @@
     <string name="nickname">닉네임</string>
     <string name="email">이메일</string>
     <string name="numberOfStore">가게수</string>
-    
+    <string name="shopkeeper_percentage_title">현재 사용 중인 테이블 수/전체 테이블 수</string>
+    <string name="shopkeeper_percentage">0%</string>
+    <string name="table_type_2">2인 테이블 개수</string>
+    <string name="table_type_4">4인 테이블 개수</string>
 
 </resources>

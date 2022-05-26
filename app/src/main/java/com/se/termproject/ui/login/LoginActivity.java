@@ -37,6 +37,7 @@ import com.google.rpc.context.AttributeContext;
 import com.se.termproject.R;
 import com.se.termproject.base.java.BaseActivity;
 import com.se.termproject.databinding.ActivityLoginBinding;
+import com.se.termproject.ui.shopkeeper.CheckActivity;
 
 public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
     private static final String TAG = "ACT/LOGIN";
@@ -103,11 +104,13 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
                                 startNextActivity(com.se.termproject.ui.customer.MainActivity.class);
                             } else {
                                 // admin mode
-                                startNextActivity(com.se.termproject.ui.shopkeeper.MainActivity.class);
+                                startNextActivity(CheckActivity.class);
                             }
                         } else {
                             Toast.makeText(getApplicationContext(), "로그인 실패", Toast.LENGTH_SHORT).show();
                         }
+
+                        finish();
                     }
                 });
     }

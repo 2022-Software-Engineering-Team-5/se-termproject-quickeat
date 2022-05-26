@@ -11,7 +11,8 @@ import com.se.termproject.util.ApplicationClass.Companion.USER_ID
 import com.se.termproject.util.getUserId
 import com.se.termproject.util.saveUserId
 
-class CheckActivity : BaseActivity<ActivityShopkeeperCheckBinding>(ActivityShopkeeperCheckBinding::inflate) {
+class CheckActivity :
+    BaseActivity<ActivityShopkeeperCheckBinding>(ActivityShopkeeperCheckBinding::inflate) {
     companion object {
         private const val TAG = "ACT/CHECK"
     }
@@ -19,7 +20,6 @@ class CheckActivity : BaseActivity<ActivityShopkeeperCheckBinding>(ActivityShopk
     private lateinit var user: FirebaseUser
     private lateinit var mDatabase: FirebaseDatabase
     private lateinit var mShopsReference: DatabaseReference
-    private lateinit var mShopReference: DatabaseReference
 
     override fun initAfterBinding() {
         // 사용자 입력 받아오기
@@ -29,20 +29,18 @@ class CheckActivity : BaseActivity<ActivityShopkeeperCheckBinding>(ActivityShopk
 
         mDatabase = FirebaseDatabase.getInstance()
         mShopsReference = mDatabase.getReference("shops")
-        mShopReference = mDatabase.getReference(USER_ID)
 
-        mShopReference.addValueEventListener(object : ValueEventListener {
+        mShopsReference.child("USER_ID").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshop: DataSnapshot) {
                 if (dataSnapshop.getValue(Shop::class.java) == null) {
                     startNextActivity(RegisterActivity::class.java)
-                }
-                else {
+                } else {
                     startNextActivity(MainActivity::class.java)
                 }
                 finish()
             }
 
-            override fun onCancelled(databaseError: DatabaseError) { }
+            override fun onCancelled(databaseError: DatabaseError) {}
 
         })
     }

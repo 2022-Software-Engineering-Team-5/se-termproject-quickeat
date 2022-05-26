@@ -46,9 +46,9 @@
             <RelativeLayout
                 android:id="@+id/shopkeeper_register_shop_location_container"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="150dp"
                 android:layout_marginStart="50dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginEnd="50dp"
                 app:layout_constraintBottom_toTopOf="@id/shopkeeper_register_get_location_btn"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -100,35 +100,67 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="50dp"
                 android:hint="@string/shopkeeper_total_table_count"
-                app:layout_constraintBottom_toTopOf="@id/shopkeeper_register_table_type_et"
+                app:layout_constraintBottom_toTopOf="@id/shopkeeper_register_table_type_ll"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/shopkeeper_register_shop_description_et" />
 
-            <EditText
-                android:id="@+id/shopkeeper_register_table_type_et"
-                android:layout_width="0dp"
+            <LinearLayout
+                android:id="@+id/shopkeeper_register_table_type_ll"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="50dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="5dp"
-                android:hint="@string/table_type_count"
-                android:visibility="gone"
-                app:layout_constraintEnd_toStartOf="@id/shopkeeper_register_table_type_check_btn"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/shopkeeper_register_total_table_count_et" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/shopkeeper_register_table_type_check_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="50dp"
-                android:text="@string/check"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="@id/shopkeeper_register_table_type_et"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/shopkeeper_register_table_type_et"
-                app:layout_constraintTop_toTopOf="@id/shopkeeper_register_table_type_et" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/shopkeeper_register_total_table_count_et">
+
+                <EditText
+                    android:id="@+id/shopkeeper_register_table_type_2_et"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:hint="@string/table_type_2" />
+
+                <EditText
+                    android:id="@+id/shopkeeper_register_table_type_4_et"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="50dp"
+                    android:layout_weight="1"
+                    android:hint="@string/table_type_4" />
+
+            </LinearLayout>
+
+            <!--            <EditText-->
+            <!--                android:id="@+id/shopkeeper_register_table_type_et"-->
+            <!--                android:layout_width="0dp"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginStart="50dp"-->
+            <!--                android:layout_marginTop="20dp"-->
+            <!--                android:layout_marginEnd="5dp"-->
+            <!--                android:hint="@string/table_type_count"-->
+            <!--                android:visibility="gone"-->
+            <!--                app:layout_constraintEnd_toStartOf="@id/shopkeeper_register_table_type_check_btn"-->
+            <!--                app:layout_constraintStart_toStartOf="parent"-->
+            <!--                app:layout_constraintTop_toBottomOf="@id/shopkeeper_register_total_table_count_et" />-->
+
+            <!--            <androidx.appcompat.widget.AppCompatButton-->
+            <!--                android:id="@+id/shopkeeper_register_table_type_check_btn"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginEnd="50dp"-->
+            <!--                android:text="@string/check"-->
+            <!--                android:visibility="gone"-->
+            <!--                app:layout_constraintBottom_toBottomOf="@id/shopkeeper_register_table_type_et"-->
+            <!--                app:layout_constraintEnd_toEndOf="parent"-->
+            <!--                app:layout_constraintStart_toEndOf="@id/shopkeeper_register_table_type_et"-->
+            <!--                app:layout_constraintTop_toTopOf="@id/shopkeeper_register_table_type_et" />-->
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

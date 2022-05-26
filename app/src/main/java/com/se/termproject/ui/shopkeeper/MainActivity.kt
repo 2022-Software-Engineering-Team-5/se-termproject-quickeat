@@ -14,6 +14,7 @@ import com.se.termproject.R
 import com.se.termproject.base.kotlin.BaseActivity
 import com.se.termproject.data.Shop
 import com.se.termproject.databinding.ActivityShopkeeperBaseBinding
+import com.se.termproject.util.ApplicationClass.Companion.USER_ID
 import com.se.termproject.util.getUserId
 import com.se.termproject.util.saveUserId
 
@@ -22,18 +23,14 @@ class MainActivity :
     NavigationView.OnNavigationItemSelectedListener {
     companion object {
         private const val TAG = "ACT/MAIN"
-        private lateinit var USER_ID: String
     }
 
     private lateinit var user: FirebaseUser
     private lateinit var mDatabase: FirebaseDatabase
     private lateinit var mShopsReference: DatabaseReference
-    private lateinit var mShopReference: DatabaseReference
-    private lateinit var mChildEventListener: ChildEventListener
 
     override fun initAfterBinding() {
-        mDatabase = FirebaseDatabase.getInstance()
-        mShopsReference = mDatabase.getReference("shops")
+        initReference()
 
         // 사용자 입력 받아오기
         user = Firebase.auth.currentUser!!
@@ -45,22 +42,27 @@ class MainActivity :
         initClickListener()
     }
 
+    private fun initReference() {
+        mDatabase = FirebaseDatabase.getInstance()
+        mShopsReference = mDatabase.getReference("shops")
+    }
+
     private fun initData() {
-        mShopReference = mDatabase.getReference("shops").child(USER_ID)
-        mShopsReference.addValueEventListener(object : ValueEventListener {
+        mShopsReference.child(USER_ID).addValueEventListener(object : ValueEventListener {
 
             override fun onDataChange(dataSnapshot: DataSnapshot) {
 //                if (dataSnapshot.getValue(Shop::class.java) == null) return
 
-                val shop: Shop = dataSnapshot.getValue(Shop::class.java)!!
-                Log.d(TAG, "shop: $shop")
+                val shop = dataSnapshot.getValue(Shop::class.java)!!
 
                 binding.shopkeeperMainLayout.shopkeeperNameTv.text = shop.name
-                binding.shopkeeperMainLayout.shopkeeperTotalTableCountTv.text = shop.totalTableCount.toString()
-                binding.shopkeeperMainLayout.shopkeeperAvailableTableCountTv.text = shop.availableTableCount.toString()
+                binding.shopkeeperMainLayout.shopkeeperTotalTableCountTv.text =
+                    shop.totalTableCount.toString()
+                binding.shopkeeperMainLayout.shopkeeperAvailableTableCountTv.text =
+                    shop.availableTableCount.toString()
             }
 
-            override fun onCancelled(databaseError: DatabaseError) { }
+            override fun onCancelled(databaseError: DatabaseError) {}
 
         })
     }
