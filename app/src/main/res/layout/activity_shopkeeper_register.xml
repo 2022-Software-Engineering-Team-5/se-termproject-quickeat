@@ -33,6 +33,7 @@
         android:id="@+id/shopkeeper_register_sv"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:overScrollMode="never"
         app:layout_constraintBottom_toTopOf="@id/shopkeeper_register_check_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -100,7 +101,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="50dp"
                 android:hint="@string/shopkeeper_total_table_count"
-                app:layout_constraintBottom_toTopOf="@id/shopkeeper_register_table_type_ll"
+                app:layout_constraintBottom_toTopOf="@id/shopkeeper_register_cover_img_iv"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/shopkeeper_register_shop_description_et" />
@@ -162,6 +163,31 @@
             <!--                app:layout_constraintEnd_toEndOf="parent"-->
             <!--                app:layout_constraintStart_toEndOf="@id/shopkeeper_register_table_type_et"-->
             <!--                app:layout_constraintTop_toTopOf="@id/shopkeeper_register_table_type_et" />-->
+
+            <ImageView
+                android:id="@+id/shopkeeper_register_cover_img_iv"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="50dp"
+                android:src="@drawable/ic_add_photo_alternate"
+                app:layout_constraintBottom_toTopOf="@id/shopkeeper_register_cover_img_btn"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/shopkeeper_register_total_table_count_et" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/shopkeeper_register_cover_img_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="20dp"
+                android:text="@string/upload"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/shopkeeper_register_cover_img_iv" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

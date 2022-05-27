@@ -1,17 +1,25 @@
 package com.se.termproject.ui.shopkeeper
 
 import android.Manifest
+import android.content.ContentResolver
+import android.content.Intent
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
+import android.net.Uri
 import android.util.Log
+import android.webkit.MimeTypeMap
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import com.se.termproject.R
 import com.se.termproject.base.kotlin.BaseActivity
 import com.se.termproject.data.Shop
@@ -40,11 +48,16 @@ class RegisterActivity :
 
     // Kakao Map API
     private lateinit var mapView: MapView
+    private lateinit var coverImgUrl: Uri
 
     // Firebase
     private lateinit var user: FirebaseUser
     private lateinit var mDatabase: FirebaseDatabase
     private lateinit var mShopsReference: DatabaseReference
+    private lateinit var mStorageReference: StorageReference
+
+    // storage
+    private lateinit var activityResult: ActivityResultLauncher<Intent>
 
     override fun initAfterBinding() {
         initReference()
@@ -54,6 +67,14 @@ class RegisterActivity :
             arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
             0
         )
+
+        activityResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()
+        ) {
+            if (it.resultCode == RESULT_OK && it.data != null) {
+                coverImgUrl = it.data!!.data!!
+                binding.shopkeeperRegisterCoverImgIv.setImageURI(coverImgUrl)
+            }
+        }
 
         // 사용자 정보 받아오기
         user = Firebase.auth.currentUser!!
@@ -67,6 +88,7 @@ class RegisterActivity :
     private fun initReference() {
         mDatabase = FirebaseDatabase.getInstance()
         mShopsReference = mDatabase.getReference("shops")
+        mStorageReference = FirebaseStorage.getInstance().reference
     }
 
     private fun startLocationService() {
@@ -110,6 +132,20 @@ class RegisterActivity :
             startLocationService()
         }
 
+        // 이미지 업로드
+        binding.shopkeeperRegisterCoverImgIv.setOnClickListener {
+            val galleryIntent = Intent()
+            galleryIntent.action = Intent.ACTION_GET_CONTENT
+            galleryIntent.type = "image/"
+            activityResult.launch(galleryIntent)
+        }
+
+        // 이미지 업로드 버튼 클릭 시
+        binding.shopkeeperRegisterCoverImgBtn.setOnClickListener {
+            // 선택한 이미지가 있다면
+            uploadImg(coverImgUrl)
+        }
+
         // check
         binding.shopkeeperRegisterCheckBtn.setOnClickListener {
             val shopName = binding.shopkeeperRegisterShopNameEt.text.toString()
@@ -119,7 +155,7 @@ class RegisterActivity :
 //            val tableTypeCount =
 //                Integer.parseInt(binding.shopkeeperRegisterTableTypeEt.text.toString())
 
-            val shop = Shop(shopName, shopDesc, latitude, longitude, totalTableCount, 0)
+            val shop = Shop(shopName, shopDesc, latitude, longitude, totalTableCount, 0, coverImgUrl.toString())
 
             mShopsReference.child(USER_ID).setValue(shop)
                 .addOnSuccessListener {
@@ -151,5 +187,27 @@ class RegisterActivity :
             initKakaoMapApi()
             manager.removeUpdates(gpsListener)
         }
+    }
+
+    // upload the image to firebase
+    private fun uploadImg(uri: Uri) {
+        val mFileReference: StorageReference = mStorageReference.child(USER_ID).child("${System.currentTimeMillis()}.${getFileExtension(uri)}")
+
+        mFileReference.putFile(uri).addOnSuccessListener {
+            coverImgUrl = uri
+            mShopsReference.child(USER_ID).child("coverImg").setValue(uri.toString())
+
+            Toast.makeText(this, "업로드 성공", Toast.LENGTH_SHORT).show()
+            binding.shopkeeperRegisterCoverImgIv.setImageURI(uri)
+        }.addOnFailureListener {
+            Toast.makeText(this, "업로드 실패", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun getFileExtension(uri: Uri) : String {
+        val contentResolver: ContentResolver = contentResolver
+        val mime: MimeTypeMap = MimeTypeMap.getSingleton()
+
+        return mime.getExtensionFromMimeType(contentResolver.getType(uri))!!
     }
 }

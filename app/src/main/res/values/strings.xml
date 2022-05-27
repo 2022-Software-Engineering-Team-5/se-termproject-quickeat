@@ -63,5 +63,6 @@
     <string name="shopkeeper_percentage">0%</string>
     <string name="table_type_2">2인 테이블 개수</string>
     <string name="table_type_4">4인 테이블 개수</string>
+    <string name="upload">업로드</string>
 
 </resources>

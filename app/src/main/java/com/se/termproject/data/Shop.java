@@ -1,5 +1,7 @@
 package com.se.termproject.data;
 
+import javax.annotation.Nullable;
+
 public class Shop {
     private String name;
     private String description;
@@ -7,16 +9,18 @@ public class Shop {
     private double longitude;
     private int totalTableCount;
     private int availableTableCount;
+    @Nullable private String coverImg;
 
     public Shop() { }
 
-    public Shop(String name, String description, double latitude, double longitude, int totalTableCount, int availableTableCount) {
+    public Shop(String name, String description, double latitude, double longitude, int totalTableCount, int availableTableCount, @Nullable String coverImg) {
         this.name = name;
         this.description = description;
         this.latitude = latitude;
         this.longitude = longitude;
         this.totalTableCount = totalTableCount;
         this.availableTableCount = availableTableCount;
+        this.coverImg = coverImg;
     }
 
     public String getName() {
@@ -65,5 +69,14 @@ public class Shop {
 
     public void setAvailableTableCount(int availableTableCount) {
         this.availableTableCount = availableTableCount;
+    }
+
+    @Nullable
+    public String getCoverImg() {
+        return coverImg;
+    }
+
+    public void setCoverImg(@Nullable String coverImg) {
+        this.coverImg = coverImg;
     }
 }
