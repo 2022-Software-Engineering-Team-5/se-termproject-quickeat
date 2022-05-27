@@ -14,7 +14,7 @@ public class Customer {
         this.id = id;
         this.name = name;
         this.email = email;
-        if(review != null) this.review = review;
+        this.review = review;
     }
 
     public String getId() {

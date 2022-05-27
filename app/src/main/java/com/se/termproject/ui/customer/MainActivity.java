@@ -22,6 +22,7 @@ import com.google.firebase.ktx.Firebase;
 import com.se.termproject.R;
 import com.se.termproject.base.java.BaseActivity;
 import com.se.termproject.data.Customer;
+import com.se.termproject.data.Review;
 import com.se.termproject.databinding.ActivityMainBinding;
 import com.se.termproject.ui.customer.home.HomeFragment;
 import com.se.termproject.ui.customer.setting.SettingFragment;
@@ -69,7 +70,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
     private void initData() {
         USER_ID = SharedPreferencesManagerKt.getUserId();
-        Customer customer = new Customer(user.getUid(), user.getDisplayName(), user.getEmail(), null);
+        Customer customer = new Customer(user.getUid(), user.getDisplayName(), user.getEmail(), new Review());
 
         mCustomersReference.child(USER_ID).addValueEventListener(new ValueEventListener() {
 

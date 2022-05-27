@@ -1,20 +1,20 @@
 package com.se.termproject.ui.customer.home
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
-import android.widget.ImageView
-import android.widget.PopupWindow
-import android.widget.RelativeLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
 import com.se.termproject.R
 import com.se.termproject.base.kotlin.BaseFragment
+import com.se.termproject.data.Customer
+import com.se.termproject.data.Review
 import com.se.termproject.data.Shop
 import com.se.termproject.databinding.FragmentHomeBinding
 import com.se.termproject.ui.customer.home.adapter.ShopRVAdapter
@@ -39,16 +39,19 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     // firebase
     private lateinit var mDatabase: FirebaseDatabase
     private lateinit var mShopsReference: DatabaseReference
+    private lateinit var mCustomersReference: DatabaseReference
 
     // after onCreate()
     override fun initAfterBinding() {
         initReference()
         USER_ID = getUserId()!!
-        shopRVAdapter = ShopRVAdapter() // initialize RecyclerView adapter
+        shopRVAdapter = ShopRVAdapter(requireContext()) // initialize RecyclerView adapter
 
         initRecyclerView()
         binding.homeJjymSaveBtn.setOnClickListener {
-            //이 위에 firebase DB로 가게이름과 한줄메모가 전송되는 코드가 작성되어야함.
+            val review = Review(selectedShop.name, binding.homeJjymMemoEt.text.toString(), null)
+            mCustomersReference.child(USER_ID).child("review").setValue(review)
+
             binding.homeJjymCl.visibility = View.INVISIBLE
         }
     }
@@ -57,6 +60,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     private fun initReference() {
         mDatabase = FirebaseDatabase.getInstance()
         mShopsReference = mDatabase.getReference("shops")
+        mCustomersReference = mDatabase.getReference("customers")
 
         // get data from realtime database
         mShopsReference.addValueEventListener(object : ValueEventListener {
@@ -74,6 +78,18 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
             override fun onCancelled(databaseError: DatabaseError) {}
 
+        })
+
+        mCustomersReference.child(USER_ID).addValueEventListener(object : ValueEventListener {
+
+            override fun onDataChange(dataSnapshop: DataSnapshot) {
+                val customer = dataSnapshop.getValue(Customer::class.java)!!
+                Toast.makeText(requireContext(), "작성 완료", Toast.LENGTH_SHORT).show()
+
+                Log.d(TAG, "customer's review: ${customer.review}")
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) { }
         })
     }
 
@@ -131,9 +147,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             binding.homeJjymCl.visibility = View.VISIBLE
             popupView.findViewById<ImageView>(R.id.popup_window_market_jjym_not_activate_icon_iv).visibility = View.GONE
             popupView.findViewById<ImageView>(R.id.popup_window_market_jjym_activate_icon_iv).visibility = View.VISIBLE
+            mPopupWindow.dismiss()
         }
 
         popupView.findViewById<ImageView>(R.id.popup_window_market_jjym_activate_icon_iv).setOnClickListener {
+            binding.homeJjymCl.visibility = View.INVISIBLE
+            popupView.findViewById<ImageView>(R.id.popup_window_market_jjym_not_activate_icon_iv).visibility = View.VISIBLE
+            popupView.findViewById<ImageView>(R.id.popup_window_market_jjym_activate_icon_iv).visibility = View.GONE
+        }
+
+        binding.homeJjymActivateIconIv.setOnClickListener {
             binding.homeJjymCl.visibility = View.INVISIBLE
             popupView.findViewById<ImageView>(R.id.popup_window_market_jjym_not_activate_icon_iv).visibility = View.VISIBLE
             popupView.findViewById<ImageView>(R.id.popup_window_market_jjym_activate_icon_iv).visibility = View.GONE

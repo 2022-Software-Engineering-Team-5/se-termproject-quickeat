@@ -194,11 +194,13 @@ class RegisterActivity :
         val mFileReference: StorageReference = mStorageReference.child(USER_ID).child("${System.currentTimeMillis()}.${getFileExtension(uri)}")
 
         mFileReference.putFile(uri).addOnSuccessListener {
-            coverImgUrl = uri
-            mShopsReference.child(USER_ID).child("coverImg").setValue(uri.toString())
 
-            Toast.makeText(this, "업로드 성공", Toast.LENGTH_SHORT).show()
-            binding.shopkeeperRegisterCoverImgIv.setImageURI(uri)
+            mFileReference.downloadUrl.addOnSuccessListener {
+                coverImgUrl = it
+                mShopsReference.child(USER_ID).child("coverImg").setValue(coverImgUrl.toString())
+                Toast.makeText(this, "업로드 성공", Toast.LENGTH_SHORT).show()
+                binding.shopkeeperRegisterCoverImgIv.setImageURI(uri)
+            }
         }.addOnFailureListener {
             Toast.makeText(this, "업로드 실패", Toast.LENGTH_SHORT).show()
         }
