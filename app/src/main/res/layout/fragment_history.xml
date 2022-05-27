@@ -2,16 +2,105 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ImageView
+        android:id="@+id/history_bg_profile_iv"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/bg_history_profile"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/history_title_tv"
+        android:id="@+id/history_profile_name_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/history"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:layout_marginTop="5dp"
+        android:shadowColor="@color/black"
+        android:shadowDx="7.0"
+        android:shadowDy="7.0"
+        android:shadowRadius="7.0"
+        android:text="@string/nickname"
+        android:textColor="@color/white"
+        android:textSize="22sp"
+        android:textStyle="normal"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintTop_toTopOf="@id/history_bg_profile_iv"
+        app:layout_constraintBottom_toTopOf="@id/history_profile_email_tv"
+        app:layout_constraintStart_toStartOf="@id/history_bg_profile_iv"
+        app:layout_constraintEnd_toEndOf="@id/history_bg_profile_iv"/>
 
+    <TextView
+        android:id="@+id/history_profile_email_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:shadowColor="@color/black"
+        android:shadowDx="7.0"
+        android:shadowDy="7.0"
+        android:shadowRadius="7.0"
+        android:text="@string/email"
+        android:textColor="@color/white"
+        android:textSize="22sp"
+        android:textStyle="normal"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintTop_toBottomOf="@id/history_profile_name_tv"
+        app:layout_constraintBottom_toTopOf="@id/history_profile_numberOfStore_ll"
+        app:layout_constraintStart_toStartOf="@id/history_bg_profile_iv"
+        app:layout_constraintEnd_toEndOf="@id/history_bg_profile_iv"/>
+
+    <LinearLayout
+        android:id="@+id/history_profile_numberOfStore_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/history_profile_email_tv"
+        app:layout_constraintBottom_toBottomOf="@id/history_bg_profile_iv"
+        app:layout_constraintStart_toStartOf="@id/history_bg_profile_iv"
+        app:layout_constraintEnd_toEndOf="@id/history_bg_profile_iv">
+
+    <ImageView
+        android:id="@+id/store_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_store"
+        app:layout_constraintStart_toStartOf="@id/history_bg_profile_iv"
+        app:layout_constraintEnd_toStartOf="@id/history_profile_numberOfStore_tv"
+        android:layout_marginEnd="10dp">
+    </ImageView>
+
+
+    <TextView
+        android:id="@+id/history_profile_numberOfStore_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:shadowColor="@color/black"
+        android:shadowDx="7.0"
+        android:shadowDy="7.0"
+        android:shadowRadius="7.0"
+        android:text="@string/numberOfStore"
+        android:textColor="@color/white"
+        android:textSize="22sp"
+        android:textStyle="normal" />
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/ranking_rv"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:overScrollMode="never"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/history_bg_profile_iv"
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="0dp"
+        tools:listitem="@layout/item_history_store" />
 </androidx.constraintlayout.widget.ConstraintLayout>

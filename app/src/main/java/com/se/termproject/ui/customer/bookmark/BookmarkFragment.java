@@ -1,5 +1,6 @@
 package com.se.termproject.ui.customer.bookmark;
 
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -18,7 +19,7 @@ public class BookmarkFragment extends BaseFragment<FragmentBookmarkBinding> {
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference db = database.getReference();
-    DatabaseReference customer = database.getReference("customer");
+    DatabaseReference customer = database.getReference("customer").child("first");
 
     @Override
     protected FragmentBookmarkBinding setViewBinding() {
@@ -31,29 +32,31 @@ public class BookmarkFragment extends BaseFragment<FragmentBookmarkBinding> {
         binding.button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //customer.child("first").child("second").child("third").setValue("helloworld");
+                customer.child("").child("second").child("third").setValue("helloworld");
 
-                db.child("Together_group_list").child("customer").addValueEventListener(new ValueEventListener() {
+                /*
+                DatabaseReference customer1 = database.getReference("customer");
+                customer1.addValueEventListener(new ValueEventListener() {
                     @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        //Together_group_list group = dataSnapshot.getValue(Together_group_list.class);
+                    public void onDataChange(DataSnapshot dataSnapshot) {
 
-                        //각각의 값 받아오기 get어쩌구 함수들은 Together_group_list.class에서 지정한것
-                        //gintro = group.getGintro();
-                        //goaltime = group.getGoaltime();
-                        //gdate = group.getGoalday();
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            Log.d("MainActivity", "Single ValueEventListener : " + snapshot.getClass());
+                            //Log.d("MainActivity", "Single ValueEventListener : " + snapshot.classgetChildren());
+                        }
+                        //출처: https://stack07142.tistory.com/282 [Hello World:티스토리]
 
-                        //텍스트뷰에 받아온 문자열 대입하기
-                        //goaltime_tv.setText(goaltime);
-                        //gintro_tv.setText(gintro);
-                        //gdate_tv.setText(gdate);
                     }
 
+
+
                     @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-                        //Log.e("MainActivity", String.valueOf(databaseError.toException())); // 에러문 출력
+                    public void onCancelled(DatabaseError databaseError) {
+
                     }
-                });
+                });*/
+
+                // 출처: https://stack07142.tistory.com/282 [Hello World:티스토리]
             }
         });
     }
