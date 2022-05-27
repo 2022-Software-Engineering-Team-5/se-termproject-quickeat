@@ -42,7 +42,7 @@
             android:id="@+id/home_jjym_activate_icon_iv"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/ic_baseline_stars_blue"
+            android:src="@drawable/ic_star_yellow"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/home_jjym_market_name_tv"
             app:layout_constraintStart_toStartOf="parent"

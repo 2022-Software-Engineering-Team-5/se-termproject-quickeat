@@ -13,7 +13,6 @@ import com.google.firebase.database.*
 import com.se.termproject.R
 import com.se.termproject.base.kotlin.BaseFragment
 import com.se.termproject.data.Customer
-import com.se.termproject.data.Review
 import com.se.termproject.data.Shop
 import com.se.termproject.databinding.FragmentHomeBinding
 import com.se.termproject.util.ApplicationClass.Companion.USER_ID
@@ -136,7 +135,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
         val inflater =
             activity?.getSystemService(AppCompatActivity.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        val popupView = inflater.inflate(R.layout.popup_window_market, null)
+        val popupView = inflater.inflate(R.layout.popup_window_shop, null)
         mPopupWindow = PopupWindow(popupView, width, WindowManager.LayoutParams.WRAP_CONTENT)
 
         mPopupWindow.apply {
@@ -190,7 +189,22 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
         val availableTableCount = selectedShop.availableTableCount
         val totalTableCount = selectedShop.totalTableCount
-        val usedTableCount = totalTableCount
+        val usedTableCount = totalTableCount - availableTableCount
+        val percentage = (usedTableCount / totalTableCount) * 100.0
+
+        if (percentage >= 80.0) {
+            popupView.findViewById<ImageView>(R.id.popup_window_level_red_iv).alpha = 1.0F
+            popupView.findViewById<ImageView>(R.id.popup_window_level_yellow_iv).alpha = 0.1F
+            popupView.findViewById<ImageView>(R.id.popup_window_level_green_iv).alpha = 0.1F
+        } else if (percentage >= 30.0 && percentage < 80.0) {
+            popupView.findViewById<ImageView>(R.id.popup_window_level_red_iv).alpha = 0.1F
+            popupView.findViewById<ImageView>(R.id.popup_window_level_yellow_iv).alpha = 1.0F
+            popupView.findViewById<ImageView>(R.id.popup_window_level_green_iv).alpha = 0.1F
+        } else {
+            popupView.findViewById<ImageView>(R.id.popup_window_level_red_iv).alpha = 0.1F
+            popupView.findViewById<ImageView>(R.id.popup_window_level_yellow_iv).alpha = 0.1F
+            popupView.findViewById<ImageView>(R.id.popup_window_level_green_iv).alpha = 1.0F
+        }
     }
 
     // initialize kakao map api
