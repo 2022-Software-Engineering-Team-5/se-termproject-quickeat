@@ -18,6 +18,27 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+    <FrameLayout
+        android:id="@+id/popup_window_market_jjym_fl"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/popup_window_market_name_tv"
+        app:layout_constraintEnd_toEndOf="parent">
+        <ImageView
+            android:id="@+id/popup_window_market_jjym_activate_icon_iv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_baseline_stars_blue"
+            android:visibility="invisible"/>
+        <ImageView
+            android:id="@+id/popup_window_market_jjym_not_activate_icon_iv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_baseline_stars_black"
+            android:visibility="visible"/>
+    </FrameLayout>
 
     <RelativeLayout
         android:id="@+id/popup_window_market_location_map_container"

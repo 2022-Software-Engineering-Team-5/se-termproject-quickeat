@@ -5,6 +5,7 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
+import android.widget.ImageView
 import android.widget.PopupWindow
 import android.widget.RelativeLayout
 import android.widget.TextView
@@ -46,6 +47,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         shopRVAdapter = ShopRVAdapter() // initialize RecyclerView adapter
 
         initRecyclerView()
+        binding.homeJjymSaveBtn.setOnClickListener {
+            //이 위에 firebase DB로 가게이름과 한줄메모가 전송되는 코드가 작성되어야함.
+            binding.homeJjymCl.visibility = View.INVISIBLE
+        }
     }
 
     // initialize firebase reference
@@ -120,6 +125,19 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         popupView.findViewById<TextView>(R.id.popup_window_available_table_count_tv).text = selectedShop.availableTableCount.toString()
 
         // TODO: (이용 가능한 테이블 수 혹은 사용 중인 테이블 수 / 전체 테이블 수) 비율 구해서 신호등 표시해주기
+
+        // data
+        popupView.findViewById<ImageView>(R.id.popup_window_market_jjym_not_activate_icon_iv).setOnClickListener {
+            binding.homeJjymCl.visibility = View.VISIBLE
+            popupView.findViewById<ImageView>(R.id.popup_window_market_jjym_not_activate_icon_iv).visibility = View.GONE
+            popupView.findViewById<ImageView>(R.id.popup_window_market_jjym_activate_icon_iv).visibility = View.VISIBLE
+        }
+
+        popupView.findViewById<ImageView>(R.id.popup_window_market_jjym_activate_icon_iv).setOnClickListener {
+            binding.homeJjymCl.visibility = View.INVISIBLE
+            popupView.findViewById<ImageView>(R.id.popup_window_market_jjym_not_activate_icon_iv).visibility = View.VISIBLE
+            popupView.findViewById<ImageView>(R.id.popup_window_market_jjym_activate_icon_iv).visibility = View.GONE
+        }
     }
 
     // initialize kakao map api
