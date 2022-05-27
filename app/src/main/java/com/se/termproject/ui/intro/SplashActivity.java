@@ -7,7 +7,7 @@ import com.se.termproject.base.java.BaseActivity;
 import com.se.termproject.databinding.ActivitySplashBinding;
 
 @SuppressLint("CustomSplashScreen")
-public class SplashActivity extends BaseActivity<ActivitySplashBinding>{
+public class SplashActivity extends BaseActivity<ActivitySplashBinding> {
 
     @Override
     protected ActivitySplashBinding setViewBinding() {

@@ -5,6 +5,7 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
+import android.widget.ImageView
 import android.widget.PopupWindow
 import android.widget.RelativeLayout
 import android.widget.TextView
@@ -30,6 +31,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     override fun initAfterBinding() {
         initData()
         initRecyclerView()
+        binding.homeJjymSaveBtn.setOnClickListener {
+            //이 위에 firebase DB로 가게이름과 한줄메모가 전송되는 코드가 작성되어야함.
+            binding.homeJjymCl.visibility = View.INVISIBLE
+        }
     }
 
     // initialize data set (yet dummy data)
@@ -89,6 +94,19 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
         // data
         popupView.findViewById<TextView>(R.id.popup_window_market_name_tv).text = market.name
+
+        popupView.findViewById<ImageView>(R.id.popup_window_market_jjym_not_activate_icon_iv).setOnClickListener {
+            binding.homeJjymCl.visibility = View.VISIBLE
+            popupView.findViewById<ImageView>(R.id.popup_window_market_jjym_not_activate_icon_iv).visibility = View.GONE
+            popupView.findViewById<ImageView>(R.id.popup_window_market_jjym_activate_icon_iv).visibility = View.VISIBLE
+            market
+        }
+        popupView.findViewById<ImageView>(R.id.popup_window_market_jjym_activate_icon_iv).setOnClickListener {
+            binding.homeJjymCl.visibility = View.INVISIBLE
+            popupView.findViewById<ImageView>(R.id.popup_window_market_jjym_not_activate_icon_iv).visibility = View.VISIBLE
+            popupView.findViewById<ImageView>(R.id.popup_window_market_jjym_activate_icon_iv).visibility = View.GONE
+        }
+
     }
 
     // initialize kakao map api
