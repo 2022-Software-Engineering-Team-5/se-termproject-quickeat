@@ -6,6 +6,7 @@ public class Customer {
     private String id;
     private String name;
     private String email;
+    private String review_just;
     @Nullable private Review review;
 
     public Customer() { }
@@ -40,6 +41,7 @@ public class Customer {
     public void setEmail(String email) {
         this.email = email;
     }
+
 
     @Nullable
     public Review getReview() {

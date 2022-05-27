@@ -7,7 +7,7 @@ public class Review {
 
     public Review() { }
 
-    public Review(String shopName, String date, String review) {
+    public Review(String shopName, String review, String date) {
         this.shopName = shopName;
         this.review = review;
         this.date = date;

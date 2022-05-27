@@ -3,6 +3,7 @@ package com.se.termproject.ui.customer;
 import static com.se.termproject.util.ApplicationClass.USER_ID;
 
 import android.annotation.SuppressLint;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -71,7 +72,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
     private void initData() {
         USER_ID = SharedPreferencesManagerKt.getUserId();
         Customer customer = new Customer(user.getUid(), user.getDisplayName(), user.getEmail(), new Review());
-
         mCustomersReference.child(USER_ID).addValueEventListener(new ValueEventListener() {
 
             @Override

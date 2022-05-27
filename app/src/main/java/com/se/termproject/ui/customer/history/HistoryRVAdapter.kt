@@ -12,6 +12,7 @@ class HistoryRVAdapter(private var marketList : ArrayList<Store>) : RecyclerView
     inner class ViewHolder(val binding: ItemHistoryStoreBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(store : Store){
             binding.historyStoreTitle.text = store.market_name
+            binding.historyStoreReview.text = store.market_review
         }
     }
 
