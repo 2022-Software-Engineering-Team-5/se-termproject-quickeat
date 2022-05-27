@@ -59,7 +59,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             val current = LocalDateTime.now();
             val formatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시 mm분 ss초")
             val formatted = current.format(formatter)
-            mCustomerReference.child(USER_ID).child("Review").child(formatted).child("shop_name").setValue("가게_이름")
+            mCustomerReference.child(USER_ID).child("Review").child(formatted).child("shop_name").setValue(selectedShop.name.toString())
             mCustomerReference.child(USER_ID).child("Review").child(formatted).child("user_review").setValue(binding.homeJjymMemoTv.text.toString())
 
             //이 위에 firebase DB로 가게이름과 한줄메모가 전송되는 코드가 작성되어야함.
