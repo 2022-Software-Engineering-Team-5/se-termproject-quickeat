@@ -3,13 +3,13 @@ package com.se.termproject.ui.customer.home.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.se.termproject.data.Market
+import com.se.termproject.data.Shop
 import com.se.termproject.databinding.ItemMarketBinding
 
-class MarketRVAdapter(private val marketList: ArrayList<Market>): RecyclerView.Adapter<MarketRVAdapter.ViewHolder>(){
+class ShopRVAdapter(private val marketList: ArrayList<Shop>): RecyclerView.Adapter<ShopRVAdapter.ViewHolder>(){
 
     interface MyItemClickListner{
-        fun onItemClick(market : Market)
+        fun onItemClick(shop : Shop)
     }
 
     private lateinit var mItemClickListner: MyItemClickListner
@@ -32,9 +32,9 @@ class MarketRVAdapter(private val marketList: ArrayList<Market>): RecyclerView.A
     override fun getItemCount(): Int = marketList.size
 
     inner class ViewHolder(val binding: ItemMarketBinding): RecyclerView.ViewHolder(binding.root){
-        fun bind(market : Market){
-            binding.itemNameTv.text = market.name
-            binding.itemMarketIv.setImageResource(market.coverImg!!)
+        fun bind(shop : Shop){
+            binding.itemNameTv.text = shop.name
+//            binding.itemMarketIv.setImageResource(shop.coverImg!!)
         }
     }
 }

@@ -1,22 +1,69 @@
 package com.se.termproject.ui.shopkeeper
 
+import android.util.Log
 import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.view.GravityCompat
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.*
+import com.google.firebase.ktx.Firebase
 import com.se.termproject.R
 import com.se.termproject.base.kotlin.BaseActivity
+import com.se.termproject.data.Shop
 import com.se.termproject.databinding.ActivityShopkeeperBaseBinding
-import com.se.termproject.ui.intro.IntroActivity
+import com.se.termproject.util.ApplicationClass.Companion.USER_ID
+import com.se.termproject.util.getUserId
+import com.se.termproject.util.saveUserId
 
 class MainActivity :
     BaseActivity<ActivityShopkeeperBaseBinding>(ActivityShopkeeperBaseBinding::inflate),
     NavigationView.OnNavigationItemSelectedListener {
+    companion object {
+        private const val TAG = "ACT/MAIN"
+    }
+
+    private lateinit var user: FirebaseUser
+    private lateinit var mDatabase: FirebaseDatabase
+    private lateinit var mShopsReference: DatabaseReference
 
     override fun initAfterBinding() {
+        initReference()
+
+        // 사용자 입력 받아오기
+        user = Firebase.auth.currentUser!!
+        saveUserId(user.uid)
+        USER_ID = getUserId()!!
+
+        initData()
         initDrawerLayout()
         initClickListener()
+    }
+
+    private fun initReference() {
+        mDatabase = FirebaseDatabase.getInstance()
+        mShopsReference = mDatabase.getReference("shops")
+    }
+
+    private fun initData() {
+        mShopsReference.child(USER_ID).addValueEventListener(object : ValueEventListener {
+
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+//                if (dataSnapshot.getValue(Shop::class.java) == null) return
+
+                val shop = dataSnapshot.getValue(Shop::class.java)!!
+
+                binding.shopkeeperMainLayout.shopkeeperNameTv.text = shop.name
+                binding.shopkeeperMainLayout.shopkeeperTotalTableCountTv.text =
+                    shop.totalTableCount.toString()
+                binding.shopkeeperMainLayout.shopkeeperAvailableTableCountEt.setText(shop.availableTableCount.toString())
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {}
+
+        })
     }
 
     // drawer layout 초기화
@@ -62,6 +109,7 @@ class MainActivity :
 
     // click listener 초기화
     private fun initClickListener() {
+        // 설정 아이콘 클릭 시
         binding.shopkeeperMainLayout.shopkeeperMenuSettingIv.setOnClickListener {
             if (!binding.shopkeeperBaseLayout.isDrawerOpen(GravityCompat.END)) {
                 binding.shopkeeperBaseLayout.openDrawer(GravityCompat.END)
@@ -73,8 +121,12 @@ class MainActivity :
             binding.shopkeeperBaseLayout.closeDrawer(GravityCompat.END)
         }
 
-        binding.shopkeeperMainLayout.shopkeeperOpenCloseBtn.setOnClickListener {
-            Toast.makeText(this, "switch", Toast.LENGTH_SHORT).show()
+        // 확인 버튼 클릭 시
+        binding.shopkeeperMainLayout.shopkeeperAvailableTableCountCheckBtn.setOnClickListener {
+            val availableTableCount: Int = Integer.parseInt(binding.shopkeeperMainLayout.shopkeeperAvailableTableCountEt.text.toString())
+
+            // update data
+            mShopsReference.child(USER_ID).child("availableTableCount").setValue(availableTableCount)
         }
     }
 
