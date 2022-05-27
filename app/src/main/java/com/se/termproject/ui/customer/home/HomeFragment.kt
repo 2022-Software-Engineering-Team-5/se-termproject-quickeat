@@ -1,6 +1,7 @@
 package com.se.termproject.ui.customer.home
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -23,6 +24,8 @@ import com.se.termproject.util.getUserId
 import net.daum.mf.map.api.MapPOIItem
 import net.daum.mf.map.api.MapPoint
 import net.daum.mf.map.api.MapView
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
     companion object { private const val TAG = "FRAG/HOME" }
@@ -39,15 +42,26 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     // firebase
     private lateinit var mDatabase: FirebaseDatabase
     private lateinit var mShopsReference: DatabaseReference
+    private lateinit var mCustomerReference: DatabaseReference
 
     // after onCreate()
     override fun initAfterBinding() {
+
+        mDatabase = FirebaseDatabase.getInstance()
+        mCustomerReference = mDatabase.getReference("customers")
+
         initReference()
         USER_ID = getUserId()!!
         shopRVAdapter = ShopRVAdapter() // initialize RecyclerView adapter
 
         initRecyclerView()
         binding.homeJjymSaveBtn.setOnClickListener {
+            val current = LocalDateTime.now();
+            val formatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시 mm분 ss초")
+            val formatted = current.format(formatter)
+            mCustomerReference.child(USER_ID).child("Review").child(formatted).child("shop_name").setValue("가게_이름")
+            mCustomerReference.child(USER_ID).child("Review").child(formatted).child("user_review").setValue(binding.homeJjymMemoTv.text.toString())
+
             //이 위에 firebase DB로 가게이름과 한줄메모가 전송되는 코드가 작성되어야함.
             binding.homeJjymCl.visibility = View.INVISIBLE
         }
@@ -125,6 +139,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         popupView.findViewById<TextView>(R.id.popup_window_available_table_count_tv).text = selectedShop.availableTableCount.toString()
 
         // TODO: (이용 가능한 테이블 수 혹은 사용 중인 테이블 수 / 전체 테이블 수) 비율 구해서 신호등 표시해주기
+
 
         // data
         popupView.findViewById<ImageView>(R.id.popup_window_market_jjym_not_activate_icon_iv).setOnClickListener {

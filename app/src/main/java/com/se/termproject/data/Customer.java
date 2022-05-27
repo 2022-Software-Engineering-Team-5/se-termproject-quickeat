@@ -6,6 +6,7 @@ public class Customer {
     private String id;
     private String name;
     private String email;
+    private String review_just;
     @Nullable private Review review;
 
     public Customer() { }
@@ -14,7 +15,8 @@ public class Customer {
         this.id = id;
         this.name = name;
         this.email = email;
-        if(review != null) this.review = review;
+        //if(review != null) this.review = review;
+        this.review = review;
     }
 
     public String getId() {
@@ -40,6 +42,7 @@ public class Customer {
     public void setEmail(String email) {
         this.email = email;
     }
+
 
     @Nullable
     public Review getReview() {
