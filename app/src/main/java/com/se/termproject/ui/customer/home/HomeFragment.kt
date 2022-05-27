@@ -57,17 +57,20 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         initRecyclerView()
         binding.homeJjymSaveBtn.setOnClickListener {
 
-
             val current = LocalDateTime.now();
             val formatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시 mm분 ss초")
             val formatted = current.format(formatter)
-            val review =
-                Review(selectedShop.name, binding.homeJjymMemoEt.text.toString(), formatted)
-            mCustomersReference.child(USER_ID).child("review").setValue(review)
+
+//            val review =
+//                Review(selectedShop.name, binding.homeJjymMemoEt.text.toString(), formatted)
+//            mCustomersReference.child(USER_ID).child("review").setValue(review)
+
+            mCustomerReference.child(USER_ID).child("Review").child(formatted).child("shop_name").setValue(selectedShop.name.toString())
+            mCustomerReference.child(USER_ID).child("Review").child(formatted).child("user_review").setValue(binding.homeJjymMemoEt.text.toString())
 
 //            mCustomerReference.child(USER_ID).child("Review").child(formatted).child("shop_name").setValue("가게_이름")
 //            mCustomerReference.child(USER_ID).child("Review").child(formatted).child("user_review").setValue(binding.homeJjymMemoTv.text.toString())
-            binding.homeJjymCl.visibility = View.INVISIBLE
+            binding.homeJjymCl.visibility = View.GONE
         }
     }
 
@@ -99,7 +102,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
             override fun onDataChange(dataSnapshop: DataSnapshot) {
                 val customer = dataSnapshop.getValue(Customer::class.java)!!
-                Toast.makeText(requireContext(), "작성 완료", Toast.LENGTH_SHORT).show()
 
                 Log.d(TAG, "customer's review: ${customer.review}")
             }
@@ -171,7 +173,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
         popupView.findViewById<ImageView>(R.id.popup_window_market_jjym_activate_icon_iv)
             .setOnClickListener {
-                binding.homeJjymCl.visibility = View.INVISIBLE
+                binding.homeJjymCl.visibility = View.GONE
                 popupView.findViewById<ImageView>(R.id.popup_window_market_jjym_not_activate_icon_iv).visibility =
                     View.VISIBLE
                 popupView.findViewById<ImageView>(R.id.popup_window_market_jjym_activate_icon_iv).visibility =
@@ -179,7 +181,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             }
 
         binding.homeJjymActivateIconIv.setOnClickListener {
-            binding.homeJjymCl.visibility = View.INVISIBLE
+            binding.homeJjymCl.visibility = View.GONE
             popupView.findViewById<ImageView>(R.id.popup_window_market_jjym_not_activate_icon_iv).visibility =
                 View.VISIBLE
             popupView.findViewById<ImageView>(R.id.popup_window_market_jjym_activate_icon_iv).visibility =
