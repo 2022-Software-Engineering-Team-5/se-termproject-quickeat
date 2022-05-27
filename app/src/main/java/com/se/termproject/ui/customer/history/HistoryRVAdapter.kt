@@ -11,8 +11,8 @@ class HistoryRVAdapter(private var marketList : ArrayList<Store>) : RecyclerView
     // ViewHolder
     inner class ViewHolder(val binding: ItemHistoryStoreBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(store : Store){
-            binding.historyStoreIv.setImageResource(store.image!!)
-            binding.historyStoreTv.text = store.market_name
+            //binding.historyStoreIv.setImageResource(store.image!!)
+            //binding.historyStoreTv.text = store.market_name
         }
     }
 
