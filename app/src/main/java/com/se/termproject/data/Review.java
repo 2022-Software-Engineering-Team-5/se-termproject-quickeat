@@ -3,7 +3,7 @@ package com.se.termproject.data;
 public class Review {
     private String shopName;
     private String review;
-    private String date;        // TODO: 부경이가 이 부분 마무리해주면 좋을 듯
+    private String date;
 
     public Review() { }
 

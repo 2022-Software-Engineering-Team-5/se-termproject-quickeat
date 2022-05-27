@@ -48,7 +48,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
     protected void initAfterBinding() {
         user = FirebaseAuth.getInstance().getCurrentUser();
 
-    initReference();
+        initReference();
         initData();
 
         // fragment
@@ -82,7 +82,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) { }
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
         });
     }
 
@@ -92,7 +93,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
             @SuppressLint("NonConstantResourceId")
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch(item.getItemId()) {
+                switch (item.getItemId()) {
                     case R.id.main_bnv_history:
                         replaceFragment(historyFragment);
                         return true;

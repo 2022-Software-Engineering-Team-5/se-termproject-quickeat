@@ -1,4 +1,4 @@
-package com.se.termproject.ui.customer.home.adapter
+package com.se.termproject.ui.customer.home
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -7,12 +7,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.se.termproject.R
 import com.se.termproject.data.Shop
 import com.se.termproject.databinding.ItemShopsBinding
 
-class ShopRVAdapter(private val mContext: Context) :
-    RecyclerView.Adapter<ShopRVAdapter.ViewHolder>() {
+class HomeRVAdapter(private val mContext: Context) :
+    RecyclerView.Adapter<HomeRVAdapter.ViewHolder>() {
     companion object {
         private const val TAG = "ADAPTER/SHOPS"
     }
