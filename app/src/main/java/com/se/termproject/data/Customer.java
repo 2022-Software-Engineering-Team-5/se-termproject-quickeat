@@ -2,15 +2,15 @@ package com.se.termproject.data;
 
 import javax.annotation.Nullable;
 
-public class User {
+public class Customer {
     private String id;
     private String name;
     private String email;
     @Nullable private Review review;
 
-    public User() { }
+    public Customer() { }
 
-    public User(String id, String name, String email, @Nullable Review review) {
+    public Customer(String id, String name, String email, @Nullable Review review) {
         this.id = id;
         this.name = name;
         this.email = email;
