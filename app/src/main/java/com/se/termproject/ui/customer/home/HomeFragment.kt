@@ -1,6 +1,7 @@
 package com.se.termproject.ui.customer.home
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -23,6 +24,8 @@ import com.se.termproject.util.getUserId
 import net.daum.mf.map.api.MapPOIItem
 import net.daum.mf.map.api.MapPoint
 import net.daum.mf.map.api.MapView
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
     companion object { private const val TAG = "FRAG/HOME" }
@@ -49,6 +52,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         initRecyclerView()
         binding.homeJjymSaveBtn.setOnClickListener {
             //이 위에 firebase DB로 가게이름과 한줄메모가 전송되는 코드가 작성되어야함.
+
             binding.homeJjymCl.visibility = View.INVISIBLE
         }
     }
