@@ -6,19 +6,15 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
-import android.widget.ImageView
-import android.widget.PopupWindow
-import android.widget.RelativeLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
 import com.se.termproject.R
 import com.se.termproject.base.kotlin.BaseFragment
+import com.se.termproject.data.Customer
 import com.se.termproject.data.Shop
 import com.se.termproject.databinding.FragmentHomeBinding
-import com.se.termproject.ui.customer.home.adapter.ShopRVAdapter
 import com.se.termproject.util.ApplicationClass.Companion.USER_ID
 import com.se.termproject.util.getUserId
 import net.daum.mf.map.api.MapPOIItem
@@ -28,7 +24,9 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
-    companion object { private const val TAG = "FRAG/HOME" }
+    companion object {
+        private const val TAG = "FRAG/HOME"
+    }
 
     private var shops = ArrayList<Shop>()
     private var shopIdx: Int = 0
@@ -36,24 +34,45 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     private var longitude: Double = 0.0
 
     private lateinit var selectedShop: Shop
-    private lateinit var shopRVAdapter: ShopRVAdapter
+    private lateinit var homeRVAdapter: HomeRVAdapter
     private lateinit var mPopupWindow: PopupWindow
 
     // firebase
     private lateinit var mDatabase: FirebaseDatabase
     private lateinit var mShopsReference: DatabaseReference
+    private lateinit var mCustomersReference: DatabaseReference
+    private lateinit var mCustomerReference: DatabaseReference
 
     // after onCreate()
     override fun initAfterBinding() {
+
+        mDatabase = FirebaseDatabase.getInstance()
+        mCustomerReference = mDatabase.getReference("customers")
+
         initReference()
         USER_ID = getUserId()!!
-        shopRVAdapter = ShopRVAdapter() // initialize RecyclerView adapter
+        homeRVAdapter = HomeRVAdapter(requireContext()) // initialize RecyclerView adapter
 
         initRecyclerView()
         binding.homeJjymSaveBtn.setOnClickListener {
             //이 위에 firebase DB로 가게이름과 한줄메모가 전송되는 코드가 작성되어야함.
 
             binding.homeJjymCl.visibility = View.INVISIBLE
+
+            val current = LocalDateTime.now();
+            val formatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시 mm분 ss초")
+            val formatted = current.format(formatter)
+
+//            val review =
+//                Review(selectedShop.name, binding.homeJjymMemoEt.text.toString(), formatted)
+//            mCustomersReference.child(USER_ID).child("review").setValue(review)
+
+            mCustomerReference.child(USER_ID).child("Review").child(formatted).child("shop_name").setValue(selectedShop.name.toString())
+            mCustomerReference.child(USER_ID).child("Review").child(formatted).child("user_review").setValue(binding.homeJjymMemoEt.text.toString())
+
+//            mCustomerReference.child(USER_ID).child("Review").child(formatted).child("shop_name").setValue("가게_이름")
+//            mCustomerReference.child(USER_ID).child("Review").child(formatted).child("user_review").setValue(binding.homeJjymMemoTv.text.toString())
+            binding.homeJjymCl.visibility = View.GONE
         }
     }
 
@@ -61,6 +80,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     private fun initReference() {
         mDatabase = FirebaseDatabase.getInstance()
         mShopsReference = mDatabase.getReference("shops")
+        mCustomersReference = mDatabase.getReference("customers")
 
         // get data from realtime database
         mShopsReference.addValueEventListener(object : ValueEventListener {
@@ -73,20 +93,31 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                     shops.add(shop)
                 }
 
-                shopRVAdapter.addData(shops)
+                homeRVAdapter.addData(shops)
             }
 
             override fun onCancelled(databaseError: DatabaseError) {}
 
         })
+
+        mCustomersReference.child(USER_ID).addValueEventListener(object : ValueEventListener {
+
+            override fun onDataChange(dataSnapshop: DataSnapshot) {
+                val customer = dataSnapshop.getValue(Customer::class.java)!!
+
+                Log.d(TAG, "customer's review: ${customer.review}")
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {}
+        })
     }
 
     // initialize RecyclerView
     private fun initRecyclerView() {
-        binding.homeMarketsRecyclerView.adapter = shopRVAdapter
+        binding.homeMarketsRecyclerView.adapter = homeRVAdapter
         binding.homeMarketsRecyclerView.layoutManager = GridLayoutManager(context, 3)
 
-        shopRVAdapter.setMyItemClickListner(object : ShopRVAdapter.MyItemClickListner{
+        homeRVAdapter.setMyItemClickListner(object : HomeRVAdapter.MyItemClickListner {
             override fun onItemClick(shop: Shop, position: Int) {
                 selectedShop = shop
                 shopIdx = position
@@ -105,8 +136,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         val width = ((size?.x ?: 0) * 0.8f).toInt()
         val height = ((size?.y ?: 0) * 0.4f).toInt()
 
-        val inflater = activity?.getSystemService(AppCompatActivity.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        val popupView = inflater.inflate(R.layout.popup_window_market, null)
+        val inflater =
+            activity?.getSystemService(AppCompatActivity.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val popupView = inflater.inflate(R.layout.popup_window_shop, null)
         mPopupWindow = PopupWindow(popupView, width, WindowManager.LayoutParams.WRAP_CONTENT)
 
         mPopupWindow.apply {
@@ -125,29 +157,64 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
         // data binding
         popupView.findViewById<TextView>(R.id.popup_window_market_name_tv).text = selectedShop.name
-        popupView.findViewById<TextView>(R.id.popup_window_total_table_count_tv).text = selectedShop.totalTableCount.toString()
-        popupView.findViewById<TextView>(R.id.popup_window_available_table_count_tv).text = selectedShop.availableTableCount.toString()
-
-        // TODO: (이용 가능한 테이블 수 혹은 사용 중인 테이블 수 / 전체 테이블 수) 비율 구해서 신호등 표시해주기
+        popupView.findViewById<TextView>(R.id.popup_window_total_table_count_tv).text =
+            selectedShop.totalTableCount.toString()
+        popupView.findViewById<TextView>(R.id.popup_window_available_table_count_tv).text =
+            selectedShop.availableTableCount.toString()
 
         // data
-        popupView.findViewById<ImageView>(R.id.popup_window_market_jjym_not_activate_icon_iv).setOnClickListener {
-            binding.homeJjymCl.visibility = View.VISIBLE
-            popupView.findViewById<ImageView>(R.id.popup_window_market_jjym_not_activate_icon_iv).visibility = View.GONE
-            popupView.findViewById<ImageView>(R.id.popup_window_market_jjym_activate_icon_iv).visibility = View.VISIBLE
+        popupView.findViewById<ImageView>(R.id.popup_window_market_jjym_not_activate_icon_iv)
+            .setOnClickListener {
+                binding.homeJjymCl.visibility = View.VISIBLE
+                popupView.findViewById<ImageView>(R.id.popup_window_market_jjym_not_activate_icon_iv).visibility =
+                    View.GONE
+                popupView.findViewById<ImageView>(R.id.popup_window_market_jjym_activate_icon_iv).visibility =
+                    View.VISIBLE
+                mPopupWindow.dismiss()
+            }
+
+        popupView.findViewById<ImageView>(R.id.popup_window_market_jjym_activate_icon_iv)
+            .setOnClickListener {
+                binding.homeJjymCl.visibility = View.GONE
+                popupView.findViewById<ImageView>(R.id.popup_window_market_jjym_not_activate_icon_iv).visibility =
+                    View.VISIBLE
+                popupView.findViewById<ImageView>(R.id.popup_window_market_jjym_activate_icon_iv).visibility =
+                    View.GONE
+            }
+
+        binding.homeJjymActivateIconIv.setOnClickListener {
+            binding.homeJjymCl.visibility = View.GONE
+            popupView.findViewById<ImageView>(R.id.popup_window_market_jjym_not_activate_icon_iv).visibility =
+                View.VISIBLE
+            popupView.findViewById<ImageView>(R.id.popup_window_market_jjym_activate_icon_iv).visibility =
+                View.GONE
         }
 
-        popupView.findViewById<ImageView>(R.id.popup_window_market_jjym_activate_icon_iv).setOnClickListener {
-            binding.homeJjymCl.visibility = View.INVISIBLE
-            popupView.findViewById<ImageView>(R.id.popup_window_market_jjym_not_activate_icon_iv).visibility = View.VISIBLE
-            popupView.findViewById<ImageView>(R.id.popup_window_market_jjym_activate_icon_iv).visibility = View.GONE
+        val availableTableCount = selectedShop.availableTableCount
+        val totalTableCount = selectedShop.totalTableCount
+        val usedTableCount = totalTableCount - availableTableCount
+        val percentage = (usedTableCount / totalTableCount) * 100.0
+
+        if (percentage >= 80.0) {
+            popupView.findViewById<ImageView>(R.id.popup_window_level_red_iv).alpha = 1.0F
+            popupView.findViewById<ImageView>(R.id.popup_window_level_yellow_iv).alpha = 0.1F
+            popupView.findViewById<ImageView>(R.id.popup_window_level_green_iv).alpha = 0.1F
+        } else if (percentage >= 30.0 && percentage < 80.0) {
+            popupView.findViewById<ImageView>(R.id.popup_window_level_red_iv).alpha = 0.1F
+            popupView.findViewById<ImageView>(R.id.popup_window_level_yellow_iv).alpha = 1.0F
+            popupView.findViewById<ImageView>(R.id.popup_window_level_green_iv).alpha = 0.1F
+        } else {
+            popupView.findViewById<ImageView>(R.id.popup_window_level_red_iv).alpha = 0.1F
+            popupView.findViewById<ImageView>(R.id.popup_window_level_yellow_iv).alpha = 0.1F
+            popupView.findViewById<ImageView>(R.id.popup_window_level_green_iv).alpha = 1.0F
         }
     }
 
     // initialize kakao map api
     private fun initKakaoMapApi() {
         val mapView = MapView(context)
-        val container = mPopupWindow.contentView.findViewById<RelativeLayout>(R.id.popup_window_market_location_map_container)
+        val container =
+            mPopupWindow.contentView.findViewById<RelativeLayout>(R.id.popup_window_market_location_map_container)
         container.addView(mapView)
 
         mapView.apply {

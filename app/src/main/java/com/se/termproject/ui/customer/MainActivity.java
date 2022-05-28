@@ -3,6 +3,7 @@ package com.se.termproject.ui.customer;
 import static com.se.termproject.util.ApplicationClass.USER_ID;
 
 import android.annotation.SuppressLint;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -22,6 +23,7 @@ import com.google.firebase.ktx.Firebase;
 import com.se.termproject.R;
 import com.se.termproject.base.java.BaseActivity;
 import com.se.termproject.data.Customer;
+import com.se.termproject.data.Review;
 import com.se.termproject.databinding.ActivityMainBinding;
 import com.se.termproject.ui.customer.home.HomeFragment;
 import com.se.termproject.ui.customer.setting.SettingFragment;
@@ -46,7 +48,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
     protected void initAfterBinding() {
         user = FirebaseAuth.getInstance().getCurrentUser();
 
-    initReference();
+        initReference();
         initData();
 
         // fragment
@@ -69,8 +71,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
     private void initData() {
         USER_ID = SharedPreferencesManagerKt.getUserId();
-        Customer customer = new Customer(user.getUid(), user.getDisplayName(), user.getEmail(), null);
-
+        Customer customer = new Customer(user.getUid(), user.getDisplayName(), user.getEmail(), new Review());
         mCustomersReference.child(USER_ID).addValueEventListener(new ValueEventListener() {
 
             @Override
@@ -81,7 +82,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) { }
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
         });
     }
 
@@ -91,7 +93,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
             @SuppressLint("NonConstantResourceId")
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch(item.getItemId()) {
+                switch (item.getItemId()) {
                     case R.id.main_bnv_history:
                         replaceFragment(historyFragment);
                         return true;

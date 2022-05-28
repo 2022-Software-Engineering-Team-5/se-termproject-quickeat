@@ -16,7 +16,9 @@ import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 
 class IntroActivity : BaseActivity<ActivityIntroBinding>(ActivityIntroBinding::inflate) {
-    companion object { private const val TAG = "ACT/INTRO" }
+    companion object {
+        private const val TAG = "ACT/INTRO"
+    }
 
     private var isExist = false
     private lateinit var mSharedPreferences: SharedPreferences

@@ -6,12 +6,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.se.termproject.databinding.ItemHistoryStoreBinding
 
-class HistoryRVAdapter(private var marketList : ArrayList<Store>) : RecyclerView.Adapter<HistoryRVAdapter.ViewHolder>() {
+class HistoryRVAdapter(private var marketList: ArrayList<Store>) :
+    RecyclerView.Adapter<HistoryRVAdapter.ViewHolder>() {
 
     // ViewHolder
-    inner class ViewHolder(val binding: ItemHistoryStoreBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(store : Store){
-            //binding.historyStoreIv.setImageResource(store.image!!)
+    inner class ViewHolder(val binding: ItemHistoryStoreBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(store: Store) {
             binding.historyStoreTitle.text = store.market_name
             binding.historyStoreReview.text = store.market_review
         }
@@ -19,7 +20,8 @@ class HistoryRVAdapter(private var marketList : ArrayList<Store>) : RecyclerView
 
     // ViewHolder 생성
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding: ItemHistoryStoreBinding = ItemHistoryStoreBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding: ItemHistoryStoreBinding =
+            ItemHistoryStoreBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
