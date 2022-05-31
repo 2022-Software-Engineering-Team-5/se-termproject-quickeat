@@ -4,17 +4,22 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.se.termproject.data.Review
 import com.se.termproject.databinding.ItemHistoryStoreBinding
 
-class HistoryRVAdapter(private var marketList: ArrayList<Store>) :
+class HistoryRVAdapter(private var reviewList: ArrayList<Review>, ) :
     RecyclerView.Adapter<HistoryRVAdapter.ViewHolder>() {
+    companion object {
+        private const val TAG = "ADAPTER/REVIEW"
+    }
 
     // ViewHolder
     inner class ViewHolder(val binding: ItemHistoryStoreBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(store: Store) {
-            binding.historyStoreTitle.text = store.market_name
-            binding.historyStoreReview.text = store.market_review
+        fun bind(review: Review) {
+            binding.historyStoreTitle.text = review.shopName
+            binding.historyStoreDate.text = review.date
+            binding.historyStoreReview.text = review.review
         }
     }
 
@@ -27,17 +32,17 @@ class HistoryRVAdapter(private var marketList: ArrayList<Store>) :
 
     // ViewHolder binding
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(marketList[position])
+        holder.bind(reviewList[position])
     }
 
     // 데이터셋의 크기를 알려준다.
-    override fun getItemCount(): Int = marketList.size
+    override fun getItemCount(): Int = reviewList.size
 
     // 데이터셋 추가
     @SuppressLint("NotifyDataSetChanged")
-    fun addData(marketList: ArrayList<Store>) {
-        this.marketList.clear()
-        this.marketList.addAll(marketList)
+    fun addData(reviewList: ArrayList<Review>) {
+        this.reviewList.clear()
+        this.reviewList.addAll(reviewList)
         notifyDataSetChanged()
     }
 }
