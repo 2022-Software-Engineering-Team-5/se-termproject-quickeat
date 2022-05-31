@@ -51,14 +51,18 @@ class MainActivity :
         mShopsReference.child(USER_ID).addValueEventListener(object : ValueEventListener {
 
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-//                if (dataSnapshot.getValue(Shop::class.java) == null) return
+                if (dataSnapshot.getValue(Shop::class.java) == null) {
+                    Toast.makeText(applicationContext, "가게가 등록되지 않았습니다.", Toast.LENGTH_SHORT).show()
+                    startNextActivity(RegisterActivity::class.java)
+                    finish()
+                } else {
+                    val shop = dataSnapshot.getValue(Shop::class.java)!!
 
-                val shop = dataSnapshot.getValue(Shop::class.java)!!
-
-                binding.shopkeeperMainLayout.shopkeeperNameTv.text = shop.name
-                binding.shopkeeperMainLayout.shopkeeperTotalTableCountTv.text =
-                    shop.totalTableCount.toString()
-                binding.shopkeeperMainLayout.shopkeeperAvailableTableCountEt.setText(shop.availableTableCount.toString())
+                    binding.shopkeeperMainLayout.shopkeeperNameTv.text = shop.name
+                    binding.shopkeeperMainLayout.shopkeeperTotalTableCountTv.text =
+                        shop.totalTableCount.toString()
+                    binding.shopkeeperMainLayout.shopkeeperAvailableTableCountEt.setText(shop.availableTableCount.toString())
+                }
             }
 
             override fun onCancelled(databaseError: DatabaseError) {}
@@ -127,6 +131,9 @@ class MainActivity :
 
             // update data
             mShopsReference.child(USER_ID).child("availableTableCount").setValue(availableTableCount)
+                .addOnSuccessListener {
+                    Toast.makeText(applicationContext, "업데이트되었습니다.", Toast.LENGTH_SHORT).show()
+                }
         }
     }
 

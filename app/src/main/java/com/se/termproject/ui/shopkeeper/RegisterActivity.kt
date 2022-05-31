@@ -35,10 +35,6 @@ class RegisterActivity :
     companion object {
         private const val TAG = "ACT/REGISTER"
         private lateinit var USER_ID: String
-
-//        private val GPS_ENABLE_REQUEST_CODE: Int = 2001
-//        private val PERMISSIONS_REQUEST_CODE: Int = 100
-//        private var REQUIRED_PERMISSIONS = { Manifest.permission.ACCESS_FINE_LOCATION }
     }
 
     private var latitude: Double = 0.0
@@ -50,7 +46,7 @@ class RegisterActivity :
     private lateinit var mapView: MapView
     private lateinit var coverImgUrl: Uri
 
-    // Firebase
+    // firebase
     private lateinit var user: FirebaseUser
     private lateinit var mDatabase: FirebaseDatabase
     private lateinit var mShopsReference: DatabaseReference
@@ -68,7 +64,8 @@ class RegisterActivity :
             0
         )
 
-        activityResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()
+        activityResult = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
         ) {
             if (it.resultCode == RESULT_OK && it.data != null) {
                 coverImgUrl = it.data!!.data!!
@@ -80,7 +77,7 @@ class RegisterActivity :
         user = Firebase.auth.currentUser!!
         saveUserId(user.uid)
         USER_ID = getUserId()!!
-        mShopsReference.setValue(USER_ID)
+//        mShopsReference.setValue(USER_ID)
 
         initClickListener()
     }
@@ -150,29 +147,34 @@ class RegisterActivity :
         binding.shopkeeperRegisterCheckBtn.setOnClickListener {
             val shopName = binding.shopkeeperRegisterShopNameEt.text.toString()
             val shopDesc = binding.shopkeeperRegisterShopDescriptionEt.text.toString()
-            val totalTableCount =
-                Integer.parseInt(binding.shopkeeperRegisterTotalTableCountEt.text.toString())
-//            val tableTypeCount =
-//                Integer.parseInt(binding.shopkeeperRegisterTableTypeEt.text.toString())
+            var totalTableCount = 0
 
-            val shop = Shop(shopName, shopDesc, latitude, longitude, totalTableCount, 0, coverImgUrl.toString())
+            if (binding.shopkeeperRegisterTotalTableCountEt.text.toString() == "") {
+                Toast.makeText(this, "입력이 완료되지 않았습니다.", Toast.LENGTH_SHORT).show()
+            } else {
+                totalTableCount =
+                    Integer.parseInt(binding.shopkeeperRegisterTotalTableCountEt.text.toString())
 
-            mShopsReference.child(USER_ID).setValue(shop)
-                .addOnSuccessListener {
-                    Toast.makeText(this, "등록 완료", Toast.LENGTH_SHORT).show()
-                    startNextActivity(MainActivity::class.java)
-                    finish()
-                }
-                .addOnFailureListener {
-                    Toast.makeText(this, "등록 실패", Toast.LENGTH_SHORT).show()
-                }
+                val shop = Shop(
+                    shopName,
+                    shopDesc,
+                    latitude,
+                    longitude,
+                    totalTableCount,
+                    0,
+                    coverImgUrl.toString()
+                )
 
-//            mShopsReference.child(USER_ID).child("name").setValue(shopName)
-//            mShopsReference.child(USER_ID).child("description").setValue(shopDesc)
-//            mShopsReference.child(USER_ID).child("total_table_count").setValue(totalTableCount)
-//            mShopsReference.child(USER_ID).child("available_table_count").setValue(0)
-//            mShopsReference.child(USER_ID).child("latitude").setValue(latitude)
-//            mShopsReference.child(USER_ID).child("longitude").setValue(longitude)
+                mShopsReference.child(USER_ID).setValue(shop)
+                    .addOnSuccessListener {
+                        Toast.makeText(this, "등록 완료", Toast.LENGTH_SHORT).show()
+                        startNextActivity(MainActivity::class.java)
+                        finish()
+                    }
+                    .addOnFailureListener {
+                        Toast.makeText(this, "등록 실패", Toast.LENGTH_SHORT).show()
+                    }
+            }
         }
     }
 
@@ -191,7 +193,8 @@ class RegisterActivity :
 
     // upload the image to firebase
     private fun uploadImg(uri: Uri) {
-        val mFileReference: StorageReference = mStorageReference.child(USER_ID).child("${System.currentTimeMillis()}.${getFileExtension(uri)}")
+        val mFileReference: StorageReference = mStorageReference.child(USER_ID)
+            .child("${System.currentTimeMillis()}.${getFileExtension(uri)}")
 
         mFileReference.putFile(uri).addOnSuccessListener {
 
@@ -206,7 +209,7 @@ class RegisterActivity :
         }
     }
 
-    private fun getFileExtension(uri: Uri) : String {
+    private fun getFileExtension(uri: Uri): String {
         val contentResolver: ContentResolver = contentResolver
         val mime: MimeTypeMap = MimeTypeMap.getSingleton()
 

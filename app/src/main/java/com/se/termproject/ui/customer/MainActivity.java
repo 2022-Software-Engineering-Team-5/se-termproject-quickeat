@@ -59,7 +59,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
         // initial setting (with HomeFragment)
         replaceFragment(homeFragment);
 
-
         initBottomNavigationView();
         initClickListener();
     }

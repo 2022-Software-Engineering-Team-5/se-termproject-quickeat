@@ -30,7 +30,8 @@ class CheckActivity :
         mDatabase = FirebaseDatabase.getInstance()
         mShopsReference = mDatabase.getReference("shops")
 
-        mShopsReference.child("USER_ID").addValueEventListener(object : ValueEventListener {
+        mShopsReference.child(USER_ID).addValueEventListener(object : ValueEventListener {
+
             override fun onDataChange(dataSnapshop: DataSnapshot) {
                 if (dataSnapshop.getValue(Shop::class.java) == null) {
                     startNextActivity(RegisterActivity::class.java)
