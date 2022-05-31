@@ -7,10 +7,10 @@ public class Review {
 
     public Review() { }
 
-    public Review(String shopName, String review, String date) {
+    public Review(String shopName, String date, String review) {
         this.shopName = shopName;
-        this.review = review;
         this.date = date;
+        this.review = review;
     }
 
     public String getShopName() {

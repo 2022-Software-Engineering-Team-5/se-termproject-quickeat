@@ -55,6 +55,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
         initRecyclerView()
         binding.homeJjymSaveBtn.setOnClickListener {
+            //이 위에 firebase DB로 가게이름과 한줄메모가 전송되는 코드가 작성되어야함.
+
+            binding.homeJjymCl.visibility = View.INVISIBLE
 
             val current = LocalDateTime.now();
             val formatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시 mm분 ss초")
