@@ -22,7 +22,7 @@
         <!-- when you commit, cause the 'app key' -->
         <meta-data
             android:name="com.kakao.sdk.AppKey"
-            android:value="805a879307d8e18e487ef856f09c61e3" />
+            android:value="" />
 
         <activity
             android:name=".ui.intro.SplashActivity"
@@ -40,7 +40,9 @@
 
         <activity android:name=".ui.shopkeeper.CheckActivity" />
         <activity android:name=".ui.shopkeeper.MainActivity" />
-        <activity android:name=".ui.shopkeeper.RegisterActivity" android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".ui.shopkeeper.RegisterActivity"
+            android:windowSoftInputMode="adjustResize" />
 
         <activity android:name=".ui.customer.MainActivity" />
 

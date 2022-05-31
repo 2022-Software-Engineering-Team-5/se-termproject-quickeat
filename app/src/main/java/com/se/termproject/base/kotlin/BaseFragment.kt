@@ -49,12 +49,18 @@ abstract class BaseFragment<VB : ViewBinding>(private val inflate: (LayoutInflat
             var insets: Insets = windowInsets.getInsets(WindowInsets.Type.navigationBars())
 
             windowInsets.displayCutout?.run {
-                insets = Insets.max(insets, Insets.of(safeInsetLeft, safeInsetTop, safeInsetRight, safeInsetBottom))
+                insets = Insets.max(
+                    insets,
+                    Insets.of(safeInsetLeft, safeInsetTop, safeInsetRight, safeInsetBottom)
+                )
             }
 
             val insetsWidth = insets.right + insets.left
             val insetsHeight = insets.top + insets.bottom
-            Point(currentWindowMetrics.bounds.width() - insetsWidth, currentWindowMetrics.bounds.height() - insetsHeight)
+            Point(
+                currentWindowMetrics.bounds.width() - insetsWidth,
+                currentWindowMetrics.bounds.height() - insetsHeight
+            )
         } else {
             Point().apply {
                 defaultDisplay.getSize(this)

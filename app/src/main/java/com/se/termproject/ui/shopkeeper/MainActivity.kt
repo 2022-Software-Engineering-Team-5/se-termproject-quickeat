@@ -127,10 +127,12 @@ class MainActivity :
 
         // 확인 버튼 클릭 시
         binding.shopkeeperMainLayout.shopkeeperAvailableTableCountCheckBtn.setOnClickListener {
-            val availableTableCount: Int = Integer.parseInt(binding.shopkeeperMainLayout.shopkeeperAvailableTableCountEt.text.toString())
+            val availableTableCount: Int =
+                Integer.parseInt(binding.shopkeeperMainLayout.shopkeeperAvailableTableCountEt.text.toString())
 
             // update data
-            mShopsReference.child(USER_ID).child("availableTableCount").setValue(availableTableCount)
+            mShopsReference.child(USER_ID).child("availableTableCount")
+                .setValue(availableTableCount)
                 .addOnSuccessListener {
                     Toast.makeText(applicationContext, "업데이트되었습니다.", Toast.LENGTH_SHORT).show()
                 }

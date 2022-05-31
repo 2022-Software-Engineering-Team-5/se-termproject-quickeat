@@ -7,11 +7,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.se.termproject.data.Review
 import com.se.termproject.databinding.ItemHistoryStoreBinding
 
-class HistoryRVAdapter(private var reviewList: ArrayList<Review>, ) :
+class HistoryRVAdapter() :
     RecyclerView.Adapter<HistoryRVAdapter.ViewHolder>() {
     companion object {
         private const val TAG = "ADAPTER/REVIEW"
     }
+
+    private var reviews = ArrayList<Review>()
 
     // ViewHolder
     inner class ViewHolder(val binding: ItemHistoryStoreBinding) :
@@ -32,17 +34,17 @@ class HistoryRVAdapter(private var reviewList: ArrayList<Review>, ) :
 
     // ViewHolder binding
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(reviewList[position])
+        holder.bind(reviews[position])
     }
 
     // 데이터셋의 크기를 알려준다.
-    override fun getItemCount(): Int = reviewList.size
+    override fun getItemCount(): Int = reviews.size
 
     // 데이터셋 추가
     @SuppressLint("NotifyDataSetChanged")
-    fun addData(reviewList: ArrayList<Review>) {
-        this.reviewList.clear()
-        this.reviewList.addAll(reviewList)
+    fun addData(reviews: ArrayList<Review>) {
+        this.reviews.clear()
+        this.reviews.addAll(reviews)
         notifyDataSetChanged()
     }
 }
