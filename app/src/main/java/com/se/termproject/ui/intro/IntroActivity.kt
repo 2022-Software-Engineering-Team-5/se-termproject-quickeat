@@ -59,8 +59,6 @@ class IntroActivity : BaseActivity<ActivityIntroBinding>(ActivityIntroBinding::i
             } else {
                 startNextActivity(LoginActivity::class.java)
             }
-
-            finish()
         }
     }
 }
