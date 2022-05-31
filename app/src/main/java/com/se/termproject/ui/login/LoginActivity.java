@@ -40,6 +40,7 @@ import com.se.termproject.R;
 
 import com.se.termproject.base.java.BaseActivity;
 import com.se.termproject.databinding.ActivityLoginBinding;
+import com.se.termproject.ui.intro.SplashActivity;
 import com.se.termproject.ui.shopkeeper.CheckActivity;
 import com.se.termproject.util.SharedPreferencesManagerKt;
 
@@ -178,5 +179,6 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
         saveUserId("");
         mAuth.signOut();
         mGoogleSignInClient.signOut();
+        startNextActivityWithClear(SplashActivity.class);
     }
 }

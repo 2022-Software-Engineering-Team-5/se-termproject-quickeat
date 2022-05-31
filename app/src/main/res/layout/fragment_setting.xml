@@ -33,7 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_constraintBottom_toTopOf="@id/setting_line0_v"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -65,7 +65,7 @@
             android:layout_height="1dp"
             android:layout_marginTop="5dp"
             android:background="@color/gray"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_constraintBottom_toTopOf="@id/setting_menu_edit_ll"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -77,10 +77,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
             android:orientation="horizontal"
+            android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@id/setting_line1_v"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/setting_menu_logout_ll">
+            app:layout_constraintTop_toBottomOf="@id/setting_line0_v">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -108,6 +109,7 @@
             android:layout_height="1dp"
             android:layout_marginTop="5dp"
             android:background="@color/gray"
+            android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@id/setting_menu_review_ll"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

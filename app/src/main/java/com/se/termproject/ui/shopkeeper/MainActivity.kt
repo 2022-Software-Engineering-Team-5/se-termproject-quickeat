@@ -14,6 +14,7 @@ import com.se.termproject.R
 import com.se.termproject.base.kotlin.BaseActivity
 import com.se.termproject.data.Shop
 import com.se.termproject.databinding.ActivityShopkeeperBaseBinding
+import com.se.termproject.ui.login.LoginActivity
 import com.se.termproject.util.ApplicationClass.Companion.USER_ID
 import com.se.termproject.util.getUserId
 import com.se.termproject.util.saveUserId
@@ -82,9 +83,14 @@ class MainActivity :
                 startNextActivity(RegisterActivity::class.java)
             }
 
-            // 수정하기
-            R.id.menu_shopkeeper_nav_edit_item -> {
-                Toast.makeText(this, "수정하기", Toast.LENGTH_SHORT).show()
+//            // 수정하기
+//            R.id.menu_shopkeeper_nav_edit_item -> {
+//                Toast.makeText(this, "수정하기", Toast.LENGTH_SHORT).show()
+//            }
+
+            R.id.menu_shopkeeper_nav_logout_item -> {
+                Toast.makeText(this, "로그아웃", Toast.LENGTH_SHORT).show()
+                startNextActivity(LoginActivity::class.java)
             }
 
             // 이메일 확인

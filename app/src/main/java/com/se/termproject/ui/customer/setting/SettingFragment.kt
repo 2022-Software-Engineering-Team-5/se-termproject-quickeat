@@ -1,8 +1,14 @@
 package com.se.termproject.ui.customer.setting
 
+import android.content.Intent
 import android.widget.Toast
 import com.se.termproject.base.kotlin.BaseFragment
 import com.se.termproject.databinding.FragmentSettingBinding
+import com.se.termproject.ui.login.LoginActivity
+import com.se.termproject.util.ApplicationClass
+import com.se.termproject.util.ApplicationClass.Companion.USER_ID
+import com.se.termproject.util.getUserId
+import com.se.termproject.util.saveUserId
 
 class SettingFragment : BaseFragment<FragmentSettingBinding>(FragmentSettingBinding::inflate) {
 
@@ -12,6 +18,12 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>(FragmentSettingBind
 
     // initialize click listener
     private fun initClickListener() {
+
+        binding.settingMenuLogoutLl.setOnClickListener {
+            // 로그아웃
+            val intent = Intent(requireContext(), LoginActivity::class.java)
+            startActivity(intent)
+        }
 
         // when you click '내 정보 수정'
         binding.settingMenuEditLl.setOnClickListener {
