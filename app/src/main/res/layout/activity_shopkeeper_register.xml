@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/shopkeeper_register_bg_logo_iv"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="50dp"
+        android:alpha="0.3"
+        android:src="@drawable/ic_logo"
+        app:layout_constraintBottom_toTopOf="@id/shopkeeper_register_sv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/orbitron_regular"
+        android:text="@string/register_shop"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@id/shopkeeper_register_bg_logo_iv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/shopkeeper_register_bg_logo_iv" />
+
+    <ScrollView
+        android:id="@+id/shopkeeper_register_sv"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:overScrollMode="never"
+        app:layout_constraintBottom_toTopOf="@id/shopkeeper_register_check_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/shopkeeper_register_bg_logo_iv">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:overScrollMode="never">
+
+            <RelativeLayout
+                android:id="@+id/shopkeeper_register_shop_location_container"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="50dp"
+                app:layout_constraintBottom_toTopOf="@id/shopkeeper_register_get_location_btn"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/shopkeeper_register_get_location_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/shopkeeper_get_location"
+                app:layout_constraintBottom_toTopOf="@id/shopkeeper_register_shop_name_et"
+                app:layout_constraintEnd_toEndOf="@id/shopkeeper_register_shop_location_container"
+                app:layout_constraintStart_toStartOf="@id/shopkeeper_register_shop_location_container"
+                app:layout_constraintTop_toBottomOf="@id/shopkeeper_register_shop_location_container" />
+
+            <EditText
+                android:id="@+id/shopkeeper_register_shop_name_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="50dp"
+                android:hint="@string/shop_name"
+                app:layout_constraintBottom_toTopOf="@id/shopkeeper_register_shop_description_et"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/shopkeeper_register_get_location_btn" />
+
+            <EditText
+                android:id="@+id/shopkeeper_register_shop_description_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="50dp"
+                android:hint="@string/shop_introduction"
+                app:layout_constraintBottom_toTopOf="@id/shopkeeper_register_total_table_count_et"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/shopkeeper_register_shop_name_et" />
+
+            <EditText
+                android:id="@+id/shopkeeper_register_total_table_count_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="50dp"
+                android:hint="@string/shopkeeper_total_table_count"
+                app:layout_constraintBottom_toTopOf="@id/shopkeeper_register_cover_img_iv"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/shopkeeper_register_shop_description_et" />
+
+            <LinearLayout
+                android:id="@+id/shopkeeper_register_table_type_ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/shopkeeper_register_total_table_count_et">
+
+                <EditText
+                    android:id="@+id/shopkeeper_register_table_type_2_et"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:hint="@string/table_type_2" />
+
+                <EditText
+                    android:id="@+id/shopkeeper_register_table_type_4_et"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="50dp"
+                    android:layout_weight="1"
+                    android:hint="@string/table_type_4" />
+
+            </LinearLayout>
+
+            <!--            <EditText-->
+            <!--                android:id="@+id/shopkeeper_register_table_type_et"-->
+            <!--                android:layout_width="0dp"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginStart="50dp"-->
+            <!--                android:layout_marginTop="20dp"-->
+            <!--                android:layout_marginEnd="5dp"-->
+            <!--                android:hint="@string/table_type_count"-->
+            <!--                android:visibility="gone"-->
+            <!--                app:layout_constraintEnd_toStartOf="@id/shopkeeper_register_table_type_check_btn"-->
+            <!--                app:layout_constraintStart_toStartOf="parent"-->
+            <!--                app:layout_constraintTop_toBottomOf="@id/shopkeeper_register_total_table_count_et" />-->
+
+            <!--            <androidx.appcompat.widget.AppCompatButton-->
+            <!--                android:id="@+id/shopkeeper_register_table_type_check_btn"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginEnd="50dp"-->
+            <!--                android:text="@string/check"-->
+            <!--                android:visibility="gone"-->
+            <!--                app:layout_constraintBottom_toBottomOf="@id/shopkeeper_register_table_type_et"-->
+            <!--                app:layout_constraintEnd_toEndOf="parent"-->
+            <!--                app:layout_constraintStart_toEndOf="@id/shopkeeper_register_table_type_et"-->
+            <!--                app:layout_constraintTop_toTopOf="@id/shopkeeper_register_table_type_et" />-->
+
+            <ImageView
+                android:id="@+id/shopkeeper_register_cover_img_iv"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="50dp"
+                android:src="@drawable/ic_add_photo_alternate"
+                app:layout_constraintBottom_toTopOf="@id/shopkeeper_register_cover_img_btn"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/shopkeeper_register_total_table_count_et" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/shopkeeper_register_cover_img_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="20dp"
+                android:text="@string/upload"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/shopkeeper_register_cover_img_iv" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/shopkeeper_register_check_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="50dp"
+        android:backgroundTint="@color/primary_light"
+        android:text="@string/register"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

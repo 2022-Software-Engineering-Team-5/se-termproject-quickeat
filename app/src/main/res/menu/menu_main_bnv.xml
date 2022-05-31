@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <item
+        android:id="@+id/main_bnv_home"
+        android:enabled="true"
+        android:icon="@drawable/selector_main_bnv_home"
+        android:title="@string/home"
+        android:visible="false"
+        app:showAsAction="always"
+        tools:ignore="AlwaysShowAction" />
+
+    <!--    <item-->
+    <!--        android:id="@+id/main_bnv_bookmark"-->
+    <!--        android:icon="@drawable/selector_main_bnv_bookmark"-->
+    <!--        android:title="@string/bookmark"-->
+    <!--        app:showAsAction="always"-->
+    <!--        android:enabled="true"-->
+    <!--        tools:ignore="AlwaysShowAction" />-->
+
+    <item
+        android:id="@+id/main_bnv_history"
+        android:enabled="true"
+        android:icon="@drawable/selector_main_bnv_history"
+        android:title="@string/history"
+        app:showAsAction="always"
+        tools:ignore="AlwaysShowAction" />
+
+    <item
+        android:id="@+id/main_bnv_setting"
+        android:enabled="true"
+        android:icon="@drawable/selector_main_bnv_setting"
+        android:title="@string/setting"
+        app:showAsAction="always"
+        tools:ignore="AlwaysShowAction" />
+
+</menu>
