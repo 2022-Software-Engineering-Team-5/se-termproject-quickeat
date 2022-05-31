@@ -4,6 +4,7 @@ import android.util.Log
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.getValue
 import com.se.termproject.base.kotlin.BaseFragment
+import com.se.termproject.data.Customer
 import com.se.termproject.data.Review
 import com.se.termproject.data.Shop
 import com.se.termproject.databinding.FragmentHistoryBinding
@@ -16,8 +17,8 @@ import com.se.termproject.util.ApplicationClass.Companion.USER_ID
 import com.se.termproject.util.getUserId
 
 class HistoryFragment : BaseFragment<FragmentHistoryBinding>(FragmentHistoryBinding::inflate) {
-    private var storeData = ArrayList<Store>()
     private var reviews = ArrayList<Review>()
+    private var customers = ArrayList<Customer>()
 
     private lateinit var histroyRVAdapter: HistoryRVAdapter
 
@@ -27,7 +28,7 @@ class HistoryFragment : BaseFragment<FragmentHistoryBinding>(FragmentHistoryBind
     override fun initAfterBinding() {
         initStore()
         initRecyclerView()
-        binding()
+        //binding()
     }
 
     //store data 초기화 - firebase 연동 후 구현
@@ -63,11 +64,13 @@ class HistoryFragment : BaseFragment<FragmentHistoryBinding>(FragmentHistoryBind
 
     //RecyclerView 초기화
     private fun initRecyclerView(){
-        histroyRVAdapter = HistoryRVAdapter(storeData)
+        histroyRVAdapter = HistoryRVAdapter(reviews)
         binding.rankingRv.adapter = histroyRVAdapter
     }
 
-    private fun binding(){
-
+    private fun binding(customer: Customer){
+        binding.historyProfileNameTv.text = customer.name
+        binding.historyProfileEmailTv.text = customer.email
+        //binding.historyProfileNumberOfStoreTv.text =
     }
 }

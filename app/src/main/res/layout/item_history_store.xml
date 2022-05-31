@@ -14,9 +14,21 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"
-        android:text="가게 이름 + 날짜"
+        android:text="가게 이름"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/history_store_review"/>
+
+    <TextView
+        android:id="@+id/history_store_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        android:text="날짜"
+        app:layout_constraintStart_toEndOf="@id/history_store_title"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/history_store_review"/>
 
     <TextView
         android:id="@+id/history_store_review"
