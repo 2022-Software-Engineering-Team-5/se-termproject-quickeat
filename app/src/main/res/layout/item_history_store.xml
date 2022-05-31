@@ -39,6 +39,8 @@
         android:layout_marginEnd="5dp"
         android:layout_marginBottom="20dp"
         android:text="사용자 리뷰"
+        android:textSize="20dp"
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

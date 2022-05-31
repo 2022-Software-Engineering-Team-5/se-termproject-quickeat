@@ -1,24 +1,20 @@
 package com.se.termproject.ui.customer.history
 
 import android.util.Log
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
-import com.google.firebase.database.ktx.getValue
 import com.se.termproject.base.kotlin.BaseFragment
 import com.se.termproject.data.Customer
 import com.se.termproject.data.Review
-import com.se.termproject.data.Shop
 import com.se.termproject.databinding.FragmentHistoryBinding
-import com.se.termproject.ui.customer.history.HistoryRVAdapter
-import com.se.termproject.ui.customer.history.Store
-import com.se.termproject.ui.shopkeeper.MainActivity
-import com.se.termproject.ui.shopkeeper.RegisterActivity
 import com.se.termproject.util.ApplicationClass
 import com.se.termproject.util.ApplicationClass.Companion.USER_ID
 import com.se.termproject.util.getUserId
 
 class HistoryFragment : BaseFragment<FragmentHistoryBinding>(FragmentHistoryBinding::inflate) {
     private var reviews = ArrayList<Review>()
-    private var customers = ArrayList<Customer>()
+    private var user: FirebaseUser? = null
 
     private lateinit var histroyRVAdapter: HistoryRVAdapter
 
@@ -26,21 +22,27 @@ class HistoryFragment : BaseFragment<FragmentHistoryBinding>(FragmentHistoryBind
     private lateinit var mCustomerReference: DatabaseReference
 
     override fun initAfterBinding() {
+        user = FirebaseAuth.getInstance().currentUser
+
         initStore()
         initRecyclerView()
-        //binding()
+        binding()
     }
 
     //store data 초기화 - firebase 연동 후 구현
     private fun initStore(){
-
         ApplicationClass.USER_ID = getUserId()!!
         mDatabase = FirebaseDatabase.getInstance()
         mCustomerReference = mDatabase.getReference("customers")
 
         mCustomerReference.child(USER_ID).child("Review").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                //Log.d("여기-리뷰", dataSnapshot.value.toString())
+                var num_review : Long = dataSnapshot.childrenCount
+
+                binding.historyProfileNumberOfStoreTv.text = num_review.toString()
+
+                Log.d("여기-리뷰", num_review.toString())
+                Log.d("여기-리뷰dataSnapshot",dataSnapshot.toString())
                 for (data in dataSnapshot.children) {
                     var temp_date :String = data.key.toString()
                     var temp_value_string :String = data.value.toString()
@@ -68,9 +70,8 @@ class HistoryFragment : BaseFragment<FragmentHistoryBinding>(FragmentHistoryBind
         binding.rankingRv.adapter = histroyRVAdapter
     }
 
-    private fun binding(customer: Customer){
-        binding.historyProfileNameTv.text = customer.name
-        binding.historyProfileEmailTv.text = customer.email
-        //binding.historyProfileNumberOfStoreTv.text =
+    private fun binding(){
+        binding.historyProfileNameTv.text = user!!.displayName
+        binding.historyProfileEmailTv.text = user!!.email
     }
 }
