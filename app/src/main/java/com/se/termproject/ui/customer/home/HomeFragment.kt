@@ -67,8 +67,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 //                Review(selectedShop.name, binding.homeJjymMemoEt.text.toString(), formatted)
 //            mCustomersReference.child(USER_ID).child("review").setValue(review)
 
-            mCustomerReference.child(USER_ID).child("Review").child(formatted).child("shop_name").setValue(selectedShop.name.toString())
-            mCustomerReference.child(USER_ID).child("Review").child(formatted).child("user_review").setValue(binding.homeJjymMemoEt.text.toString())
+            mCustomerReference.child(USER_ID).child("Review").child(formatted).child("shop_name")
+                .setValue(selectedShop.name.toString())
+            mCustomerReference.child(USER_ID).child("Review").child(formatted).child("user_review")
+                .setValue(binding.homeJjymMemoEt.text.toString())
 
 //            mCustomerReference.child(USER_ID).child("Review").child(formatted).child("shop_name").setValue("가게_이름")
 //            mCustomerReference.child(USER_ID).child("Review").child(formatted).child("user_review").setValue(binding.homeJjymMemoTv.text.toString())
@@ -166,6 +168,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         popupView.findViewById<ImageView>(R.id.popup_window_market_jjym_not_activate_icon_iv)
             .setOnClickListener {
                 binding.homeJjymCl.visibility = View.VISIBLE
+                binding.homeJjymMarketNameTv.text = selectedShop.name
                 popupView.findViewById<ImageView>(R.id.popup_window_market_jjym_not_activate_icon_iv).visibility =
                     View.GONE
                 popupView.findViewById<ImageView>(R.id.popup_window_market_jjym_activate_icon_iv).visibility =

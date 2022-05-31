@@ -14,6 +14,7 @@ import com.se.termproject.R
 import com.se.termproject.base.kotlin.BaseActivity
 import com.se.termproject.data.Shop
 import com.se.termproject.databinding.ActivityShopkeeperBaseBinding
+import com.se.termproject.ui.login.LoginActivity
 import com.se.termproject.util.ApplicationClass.Companion.USER_ID
 import com.se.termproject.util.getUserId
 import com.se.termproject.util.saveUserId
@@ -51,14 +52,18 @@ class MainActivity :
         mShopsReference.child(USER_ID).addValueEventListener(object : ValueEventListener {
 
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-//                if (dataSnapshot.getValue(Shop::class.java) == null) return
+                if (dataSnapshot.getValue(Shop::class.java) == null) {
+                    Toast.makeText(applicationContext, "가게가 등록되지 않았습니다.", Toast.LENGTH_SHORT).show()
+                    startNextActivity(RegisterActivity::class.java)
+                    finish()
+                } else {
+                    val shop = dataSnapshot.getValue(Shop::class.java)!!
 
-                val shop = dataSnapshot.getValue(Shop::class.java)!!
-
-                binding.shopkeeperMainLayout.shopkeeperNameTv.text = shop.name
-                binding.shopkeeperMainLayout.shopkeeperTotalTableCountTv.text =
-                    shop.totalTableCount.toString()
-                binding.shopkeeperMainLayout.shopkeeperAvailableTableCountEt.setText(shop.availableTableCount.toString())
+                    binding.shopkeeperMainLayout.shopkeeperNameTv.text = shop.name
+                    binding.shopkeeperMainLayout.shopkeeperTotalTableCountTv.text =
+                        shop.totalTableCount.toString()
+                    binding.shopkeeperMainLayout.shopkeeperAvailableTableCountEt.setText(shop.availableTableCount.toString())
+                }
             }
 
             override fun onCancelled(databaseError: DatabaseError) {}
@@ -78,9 +83,14 @@ class MainActivity :
                 startNextActivity(RegisterActivity::class.java)
             }
 
-            // 수정하기
-            R.id.menu_shopkeeper_nav_edit_item -> {
-                Toast.makeText(this, "수정하기", Toast.LENGTH_SHORT).show()
+//            // 수정하기
+//            R.id.menu_shopkeeper_nav_edit_item -> {
+//                Toast.makeText(this, "수정하기", Toast.LENGTH_SHORT).show()
+//            }
+
+            R.id.menu_shopkeeper_nav_logout_item -> {
+                Toast.makeText(this, "로그아웃", Toast.LENGTH_SHORT).show()
+                startNextActivity(LoginActivity::class.java)
             }
 
             // 이메일 확인
@@ -123,10 +133,15 @@ class MainActivity :
 
         // 확인 버튼 클릭 시
         binding.shopkeeperMainLayout.shopkeeperAvailableTableCountCheckBtn.setOnClickListener {
-            val availableTableCount: Int = Integer.parseInt(binding.shopkeeperMainLayout.shopkeeperAvailableTableCountEt.text.toString())
+            val availableTableCount: Int =
+                Integer.parseInt(binding.shopkeeperMainLayout.shopkeeperAvailableTableCountEt.text.toString())
 
             // update data
-            mShopsReference.child(USER_ID).child("availableTableCount").setValue(availableTableCount)
+            mShopsReference.child(USER_ID).child("availableTableCount")
+                .setValue(availableTableCount)
+                .addOnSuccessListener {
+                    Toast.makeText(applicationContext, "업데이트되었습니다.", Toast.LENGTH_SHORT).show()
+                }
         }
     }
 

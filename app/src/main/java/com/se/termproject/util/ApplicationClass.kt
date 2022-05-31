@@ -3,6 +3,8 @@ package com.se.termproject.util
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.firebase.auth.FirebaseAuth
 
 class ApplicationClass : Application() {
     companion object {
