@@ -42,6 +42,7 @@ class HistoryFragment : BaseFragment<FragmentHistoryBinding>(FragmentHistoryBind
 
     // store data 초기화 - firebase 연동 후 구현
     private fun initStore() {
+        reviews.clear()
         USER_ID = getUserId()!!
         mDatabase = FirebaseDatabase.getInstance()
         mCustomerReference = mDatabase.getReference("customers")
