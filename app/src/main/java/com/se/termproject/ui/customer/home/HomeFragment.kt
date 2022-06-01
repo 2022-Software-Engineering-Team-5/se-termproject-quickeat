@@ -191,10 +191,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                 View.GONE
         }
 
-        val availableTableCount = selectedShop.availableTableCount
-        val totalTableCount = selectedShop.totalTableCount
+        val totalTableCount = selectedShop.totalTableCount.toDouble()
+        val availableTableCount = selectedShop.availableTableCount.toDouble()
         val usedTableCount = totalTableCount - availableTableCount
         val percentage = (usedTableCount / totalTableCount) * 100.0
+
+        Log.d(TAG, "totalTableCount: $totalTableCount")
+        Log.d(TAG, "availableTableCount: $availableTableCount")
+        Log.d(TAG, "usedTableCount: $usedTableCount")
+        Log.d(TAG, "percentage: $percentage")
 
         if (percentage >= 80.0) {
             popupView.findViewById<ImageView>(R.id.popup_window_level_red_iv).alpha = 1.0F
