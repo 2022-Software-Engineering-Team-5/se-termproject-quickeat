@@ -89,7 +89,6 @@ class MainActivity :
 //            }
 
             R.id.menu_shopkeeper_nav_logout_item -> {
-                Toast.makeText(this, "로그아웃", Toast.LENGTH_SHORT).show()
                 startNextActivity(LoginActivity::class.java)
             }
 
