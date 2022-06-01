@@ -191,14 +191,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                 View.GONE
         }
 
-        val totalTableCount = selectedShop.totalTableCount.toDouble()
-        val availableTableCount = selectedShop.availableTableCount.toDouble()
-        val usedTableCount = totalTableCount - availableTableCount
-        val percentage = (usedTableCount / totalTableCount) * 100.0
+//        val totalTableCount = selectedShop.totalTableCount.toDouble()
+//        val availableTableCount = selectedShop.availableTableCount.toDouble()
+//        val percentage = (usedTableCount / totalTableCount) * 100.0
+
+        val totalTableCount = selectedShop.totalTableCount
+        val availableTableCount = selectedShop.availableTableCount
+        val percentage = calculateRatio(totalTableCount, availableTableCount)
 
         Log.d(TAG, "totalTableCount: $totalTableCount")
         Log.d(TAG, "availableTableCount: $availableTableCount")
-        Log.d(TAG, "usedTableCount: $usedTableCount")
         Log.d(TAG, "percentage: $percentage")
 
         if (percentage >= 80.0) {
@@ -214,6 +216,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             popupView.findViewById<ImageView>(R.id.popup_window_level_yellow_iv).alpha = 0.1F
             popupView.findViewById<ImageView>(R.id.popup_window_level_green_iv).alpha = 1.0F
         }
+    }
+
+    fun calculateRatio(totalTableCount: Int, availableTableCount: Int) : Double {
+        val usedTableCount = totalTableCount.toDouble() - availableTableCount.toDouble()
+        return (usedTableCount / totalTableCount.toDouble()) * 100.0
     }
 
     // initialize kakao map api
