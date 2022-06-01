@@ -71,5 +71,6 @@
     <string name="shopkeeper">Shopkeeper</string>
     <string name="date">날짜</string>
     <string name="customer_review">사용자 리뷰</string>
+    <string name="cause">등록 전에 업로드 버튼을 눌러주세요.</string>
 
 </resources>
